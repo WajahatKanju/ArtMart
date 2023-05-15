@@ -3,24 +3,24 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
 
+GENDER_CHOICES = [
+    ("M", "Male"),
+    ("F", "Female"),
+    ("O", "Other"),
+]
+
+USER_TYPE_CHOICES = [
+    ("customer", "Customer"),
+    ("seller", "Seller"),
+    ("support", "Support Staff"),
+    ("delivery", "Delivery Personnel"),
+    ("affiliate", "Affiliate Partners"),
+    ("wholesale", "Wholesale Buyers"),
+    ("manufacturer", "Manufacturers/Suppliers"),
+]
+
+
 class User(AbstractUser):
-    GENDER_CHOICES = [
-        ("M", "Male"),
-        ("F", "Female"),
-        ("O", "Other"),
-    ]
-
-    USER_TYPE_CHOICES = [
-        ("customer", "Customer"),
-        ("seller", "Seller"),
-        ("admin", "Admin"),
-        ("support", "Support Staff"),
-        ("delivery", "Delivery Personnel"),
-        ("affiliate", "Affiliate Partners"),
-        ("wholesale", "Wholesale Buyers"),
-        ("manufacturer", "Manufacturers/Suppliers"),
-    ]
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     groups = models.ManyToManyField(
         Group,
@@ -37,12 +37,60 @@ class User(AbstractUser):
         related_name="custom_user_set",
     )
 
-    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+    user_type = models.CharField(
+        max_length=20, choices=USER_TYPE_CHOICES, default="customer"
+    )
     phone_number = models.CharField(max_length=15)
     date_of_birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
 
     def __str__(self):
         return self.username
+
+
+class Seller(User):
+    shop_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Seller: {self.username}"
+
+
+class SupportStaff(User):
+    department = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "Support Staff"
+
+
+class DeliveryPersonnel(User):
+    vehicle_type = models.CharField(max_length=50)
+    license_plate = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name_plural = "Delivery Personnel"
+
+
+class AffiliatePartner(User):
+    website = models.URLField(max_length=200)
+
+    class Meta:
+        verbose_name_plural = "Affiliate Partners"
+
+
+class WholesaleBuyer(User):
+    company_name = models.CharField(max_length=100)
+    tax_number = models.CharField(max_length=20)
+
+    class Meta:
+        verbose_name_plural = "Wholesale Buyers"
+
+
+class Manufacturer(User):
+    company_name = models.CharField(max_length=100)
+    address = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Manufacturers/Suppliers"
 
 
 class Address(models.Model):
@@ -57,7 +105,9 @@ class Address(models.Model):
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    user = models.ForeignKey(
+        "accounts.user", on_delete=models.CASCADE, related_name="addresses"
+    )
     address = models.CharField(max_length=255, null=True)
     country_id = models.IntegerField(null=True)
     state_id = models.IntegerField()
