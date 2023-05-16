@@ -39,7 +39,9 @@ class ProductModelTest(TestCase):
 
 class ProductImageModelTest(TestCase):
     def setUp(self):
-        self.product = Product.objects.create(name="Test Product")
+        self.product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
         self.product_image = ProductImage.objects.create(
             product=self.product,
             image="path/to/image.jpg",
@@ -146,7 +148,9 @@ class CartModelTest(TestCase):
         self.assertEqual(cart.products.count(), 0)
 
     def test_cart_item_creation(self):
-        product = Product.objects.create(name="Test Product", price=10.00)
+        product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
         cart_item = CartItem.objects.create(cart=self.cart, product=product, quantity=2)
         self.assertEqual(str(cart_item), "2 x Test Product in Cart")
         self.assertEqual(cart_item.cart, self.cart)
@@ -154,14 +158,18 @@ class CartModelTest(TestCase):
         self.assertEqual(cart_item.quantity, 2)
 
     def test_cart_item_relationship(self):
-        product = Product.objects.create(name="Test Product", price=10.00)
+        product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
         cart_item = CartItem.objects.create(cart=self.cart, product=product, quantity=2)
         self.assertEqual(cart_item.cart, self.cart)
         self.assertEqual(cart_item.product, product)
         self.assertIn(cart_item, self.cart.cartitem_set.all())
 
     def test_cart_item_quantity_update(self):
-        product = Product.objects.create(name="Test Product", price=10.00)
+        product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
         cart_item = CartItem.objects.create(cart=self.cart, product=product, quantity=2)
         cart_item.quantity = 3
         cart_item.save()
@@ -170,8 +178,11 @@ class CartModelTest(TestCase):
 
 class CartItemModelTest(TestCase):
     def setUp(self):
-        self.cart = Cart.objects.create()
-        self.product = Product.objects.create(name="Test Product", price=10.00)
+        self.user = User.objects.create(username="testuser")
+        self.cart = Cart.objects.create(user=self.user)
+        self.product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
         self.cart_item = CartItem.objects.create(
             cart=self.cart, product=self.product, quantity=2
         )
@@ -195,7 +206,9 @@ class ReviewModelTest(TestCase):
         self.user = User.objects.create_user(
             username="testuser", password="testpassword"
         )
-        self.product = Product.objects.create(name="Test Product", price=10.00)
+        self.product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
         self.review = Review.objects.create(
             user=self.user,
             product=self.product,

@@ -4,9 +4,14 @@ from .models import User
 
 
 class SignupForm(UserCreationForm):
+    GENDER_CHOICES = (
+        ("M", "Male"),
+        ("F", "Female"),
+    )
+
     phone_number = forms.CharField(max_length=15)
     date_of_birth = forms.DateField()
-    gender = forms.ChoiceField()
+    gender = forms.ChoiceField(choices=GENDER_CHOICES)
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -23,6 +28,7 @@ class SignupForm(UserCreationForm):
         user = super().save(commit=False)
         user.phone_number = self.cleaned_data["phone_number"]
         user.date_of_birth = self.cleaned_data["date_of_birth"]
+        user.gender = self.cleaned_data["gender"]
         if commit:
             user.save()
         return user

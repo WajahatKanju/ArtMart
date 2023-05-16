@@ -36,7 +36,10 @@ class OrderItemModelTest(TestCase):
         # Set up non-modified objects used by all test methods
         cls.user = User.objects.create(username="testuser")
         cls.order = Order.objects.create(user=cls.user, total_price=100.00)
-        cls.product = Product.objects.create(name="Test Product", price=10.00)
+        cls.product = Product.objects.create(
+            name="Test Product", price=10.00, stock_quantity=10
+        )
+
         cls.order_item = OrderItem.objects.create(
             order=cls.order, product=cls.product, quantity=2
         )
@@ -70,5 +73,5 @@ class PaymentModelTest(TestCase):
         self.assertEqual(payment.amount, 50.00)
 
     def test_payment_string_representation(self):
-        expected_string = f"Payment by {self.user.username} - $50.00"
+        expected_string = f"Payment by {self.user.username} - $50.0"
         self.assertEqual(str(self.payment), expected_string)

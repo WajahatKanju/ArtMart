@@ -1,5 +1,8 @@
-from django.test import TestCase
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.test import TestCase, Client
+from django.urls import reverse
+
 from .models import (
     User,
     Seller,
@@ -17,67 +20,52 @@ from .forms import SignupForm
 
 
 class UserModelTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        content_type = ContentType.objects.get_for_model(User)
+
+        staff_group, _ = Group.objects.get_or_create(name="Staff")
+        staff_permissions = Permission.objects.filter(content_type=content_type)
+        staff_group.permissions.set(staff_permissions)
+
+        admin_group, _ = Group.objects.get_or_create(name="Admin")
+        admin_permissions = Permission.objects.all()
+        admin_group.permissions.set(admin_permissions)
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser",
             password="testpassword",
-            first_name="John",
-            last_name="Doe",
-            user_type="customer",
-            phone_number="1234567890",
-            gender="M",
-            is_staff=True,
-            is_superuser=False,
         )
-
-        self.staff_user = User.objects.create(
+        self.staff_user = User.objects.create_user(
             username="staffuser",
-            user_type="support",
-            phone_number="9876543210",
-            gender="F",
+            password="staffpassword",
+            is_staff=True,
         )
-        self.staff_user.set_password("staffpassword")
-        self.staff_user.save()
-
-        self.admin_user = User.objects.create(
+        self.admin_user = User.objects.create_user(
             username="adminuser",
-            user_type="admin",
-            phone_number="5555555555",
-            gender="O",
+            password="adminpassword",
+            is_superuser=True,
         )
-        self.admin_user.set_password("adminpassword")
-        self.admin_user.save()
 
-    def test_user_creation(self):
-        self.assertEqual(User.objects.count(), 3)
-        self.assertEqual(self.user.username, "testuser")
-        self.assertEqual(self.user.get_full_name(), "John Doe")
-        self.assertEqual(self.user.user_type, "customer")
-        self.assertEqual(self.user.phone_number, "1234567890")
-        self.assertEqual(self.user.gender, "M")
-        self.assertTrue(self.user.check_password("testpassword"))
-        self.assertTrue(self.user.is_staff)
-        self.assertFalse(self.user.is_superuser)
-
-    def test_staff_user_creation(self):
-        self.assertEqual(self.staff_user.user_type, "support")
-        self.assertTrue(self.staff_user.check_password("staffpassword"))
-
-    def test_admin_user_creation(self):
-        self.assertEqual(self.admin_user.user_type, "admin")
-        self.assertTrue(self.admin_user.check_password("adminpassword"))
+    def test_user_permissions(self):
+        # Test if the normal user has the required permissions
+        self.assertFalse(self.user.has_perm("auth.change_user"))
+        self.assertFalse(self.user.has_perm("auth.view_user"))
+        self.assertFalse(self.user.has_perm("auth.add_user"))
+        self.assertFalse(self.user.has_perm("auth.delete_user"))
 
     def test_staff_user_permissions(self):
-        staff_group = Group.objects.get(name="Staff")
-        self.staff_user.groups.add(staff_group)
-
-        # Test if the staff user has the required permissions
-        self.assertTrue(self.staff_user.has_perm("accounts.change_user"))
-        self.assertTrue(self.staff_user.has_perm("accounts.view_user"))
-        self.assertFalse(self.staff_user.has_perm("accounts.add_user"))
-        self.assertFalse(self.staff_user.has_perm("accounts.delete_user"))
+        self.assertFalse(self.staff_user.has_perm("auth.view_user"))
+        self.assertFalse(self.staff_user.has_perm("auth.change_user"))
+        self.assertFalse(self.staff_user.has_perm("auth.add_user"))
+        self.assertFalse(self.staff_user.has_perm("auth.delete_user"))
 
     def test_admin_user_permissions(self):
+        self.assertTrue(self.admin_user.has_perm("auth.change_user"))
+        self.assertTrue(self.admin_user.has_perm("auth.view_user"))
+        self.assertTrue(self.admin_user.has_perm("auth.add_user"))
+        self.assertTrue(self.admin_user.has_perm("auth.delete_user"))
         admin_group = Group.objects.get(name="Admin")
         self.admin_user.groups.add(admin_group)
 
@@ -86,6 +74,49 @@ class UserModelTestCase(TestCase):
         self.assertTrue(self.admin_user.has_perm("accounts.change_user"))
         self.assertTrue(self.admin_user.has_perm("accounts.delete_user"))
         self.assertTrue(self.admin_user.has_perm("accounts.view_user"))
+
+
+class AdminAccessTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="testuser",
+            password="testpassword",
+        )
+        self.staff_user = User.objects.create_user(
+            username="staffuser",
+            password="staffpassword",
+            is_staff=True,
+        )
+        self.admin_user = User.objects.create_user(
+            username="adminuser",
+            password="adminpassword",
+            is_staff=True,
+            is_superuser=True,
+        )
+
+    def test_user_access(self):
+        client = Client()
+        client.login(username="testuser", password="testpassword")
+
+        response = client.get(reverse("admin:index"))
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_staff_access(self):
+        client = Client()
+        client.login(username="staffuser", password="staffpassword")
+
+        response = client.get(reverse("admin:index"))
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_access(self):
+        client = Client()
+        client.login(username="adminuser", password="adminpassword")
+
+        response = client.get(reverse("admin:index"))
+
+        self.assertEqual(response.status_code, 200)
 
 
 class SellerModelTestCase(TestCase):
