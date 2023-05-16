@@ -1,0 +1,21 @@
+{% extends '_base.html' %} {% block content %}
+<nav class="navbar">
+  <ul class="nav-links">
+    <li><a href="/" class="nav-link">Home</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+    {% else %}
+    <li><a href="{% url 'account_login' %}" class="nav-link">Login</a></li>
+    <li><a href="{% url 'account_signup' %}" class="nav-link">Signup</a></li>
+    {% endif %}
+  </ul>
+
+  {% if user.is_authenticated %}
+  <p class="welcome-message">Welcome, {{ user.username }}</p>
+  {% else %}
+  <p class="welcome-message">Welcome, Guest</p>
+  {% endif %}
+</nav>
+<h1>Welcome to Art Mart</h1>
+<p class="homepage-description">Site is still under development</p>
+{% endblock %}
