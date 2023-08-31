@@ -8,8 +8,40 @@ from .models import (
     ProductVideo,
     ProductVariation,
     ProductPrice,
+    Attribute,
+    AttributeValue,
 )
 from django.utils.html import format_html
+
+
+class ProductPriceInline(admin.TabularInline):
+    model = ProductPrice
+
+
+class ProductVariationInline(admin.TabularInline):
+    model = ProductVariation
+    min_num = 1
+    extra = 0
+
+
+class ProductVideoInline(admin.TabularInline):
+    model = ProductVideo
+    min_num = 1
+    extra = 0
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    min_num = 1
+    extra = 0
+
+    readonly_fields = ["display_image"]
+
+    def display_image(self, obj):
+        # Display the image as an inline thumbnail
+        return format_html('<img src="{}" width="100" />', obj.image.url)
+
+    display_image.short_description = "Image Preview"
 
 
 @admin.register(Product)
@@ -71,6 +103,13 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             return "Not Available"
 
+    inlines = [
+        # ProductPriceInline,
+        ProductVariationInline,
+        ProductVideoInline,
+        ProductImageInline,
+    ]
+
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
@@ -101,48 +140,18 @@ class VideoProviderAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ("product", "is_thumbnail", "image_thumbnail", "description")
-    list_filter = ("product", "is_thumbnail")
-
-    def image_thumbnail(self, obj):
-        if obj.image:
-            return format_html(
-                '<img src="{}" style="max-width: 100px; max-height: 100px;" />',
-                obj.image.url,
-            )
-        else:
-            return "No Image"
-
-    image_thumbnail.short_description = "Thumbnail"
+class AttributeValueInline(admin.TabularInline):
+    model = AttributeValue
+    min_num = 1
+    extra = 0
 
 
-@admin.register(ProductVideo)
-class ProductVideoAdmin(admin.ModelAdmin):
-    list_display = ("video_provider", "video_link", "created_at", "updated_at")
-
-
-@admin.register(ProductVariation)
-class ProductVariationAdmin(admin.ModelAdmin):
-    list_display = ("product", "attributes", "attribute_value", "created_at")
-
-
-@admin.register(ProductPrice)
-class ProductPriceAdmin(admin.ModelAdmin):
+@admin.register(Attribute)
+class AttributeAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
-        "product_variation",
-        "get_attributes",
-        "unit_price",
-        "discount_start_date",
-        "discount_end_date",
-        "discount",
+        "name",
         "created_at",
-        "updated_at",
     )
-
-    def get_attributes(self, obj):
-        return ", ".join([attr.name for attr in obj.attributes.all()])
-
-    get_attributes.short_description = "Attributes"
+    list_filter = ("name",)
+    search_fields = ("name",)
+    inlines = [AttributeValueInline]

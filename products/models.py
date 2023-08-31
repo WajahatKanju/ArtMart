@@ -69,6 +69,8 @@ ProductPrice model as follows:
 """
 from django.db import models
 from taggit.managers import TaggableManager
+from smart_selects.db_fields import ChainedForeignKey
+from django.db.models import Q
 
 
 class Brand(models.Model):
@@ -176,6 +178,15 @@ class ProductImage(models.Model):
     def __str__(self):
         return f"Image for {self.product}"
 
+    def save(self, *args, **kwargs):
+        # Check if this image is marked as thumbnail
+        if self.is_thumbnail:
+            # Unmark all other images related to the same product as not thumbnail
+            ProductImage.objects.filter(
+                Q(product=self.product) & ~Q(id=self.id)
+            ).update(is_thumbnail=False)
+        super().save(*args, **kwargs)
+
 
 class ProductVideo(models.Model):
     product = models.ForeignKey(
@@ -214,13 +225,15 @@ class ProductVariation(models.Model):
         on_delete=models.CASCADE,
         related_name="variations",
     )
-    attributes = models.ForeignKey(
+    attribute = models.ForeignKey(
         Attribute,
         related_name="attribute",
         on_delete=models.CASCADE,
     )
-    attribute_value = models.ForeignKey(
+    attribute_value = ChainedForeignKey(
         AttributeValue,
+        chained_field="attribute",
+        chained_model_field="attribute",
         related_name="attribute_values",
         on_delete=models.CASCADE,
     )
