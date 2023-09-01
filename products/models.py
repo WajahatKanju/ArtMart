@@ -69,7 +69,6 @@ ProductPrice model as follows:
 """
 from django.db import models
 from taggit.managers import TaggableManager
-from smart_selects.db_fields import ChainedForeignKey
 from django.db.models import Q
 
 
@@ -205,14 +204,13 @@ class ProductVideo(models.Model):
 
 class Attribute(models.Model):
     name = models.CharField(max_length=15)
-    created_at = models.DateField(auto_now_add=True)
+    values = models.ManyToManyField("AttributeValue", related_name="attributes")
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 class AttributeValue(models.Model):
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     value = models.CharField(max_length=15)
 
     def __str__(self):
@@ -225,17 +223,8 @@ class ProductVariation(models.Model):
         on_delete=models.CASCADE,
         related_name="variations",
     )
-    attribute = models.ForeignKey(
-        Attribute,
-        related_name="attribute",
-        on_delete=models.CASCADE,
-    )
-    attribute_value = ChainedForeignKey(
-        AttributeValue,
-        chained_field="attribute",
-        chained_model_field="attribute",
-        related_name="attribute_values",
-        on_delete=models.CASCADE,
+    attributes = models.ManyToManyField(
+        AttributeValue, related_name="product_variations"
     )
     created_at = models.DateField(auto_now_add=True)
 
@@ -244,7 +233,9 @@ class ProductVariation(models.Model):
 
 
 class ProductPrice(models.Model):
-    product_variation = models.ForeignKey(ProductVariation, on_delete=models.CASCADE)
+    product_variation = models.ForeignKey(
+        ProductVariation, on_delete=models.CASCADE, related_name="product_variation"
+    )
     unit_price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
     )

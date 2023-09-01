@@ -1,3 +1,4 @@
+from nested_admin import NestedModelAdmin, NestedTabularInline, NestedStackedInline
 from django.contrib import admin
 from .models import (
     Brand,
@@ -11,30 +12,35 @@ from .models import (
     Attribute,
     AttributeValue,
 )
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 
 
-class ProductPriceInline(admin.TabularInline):
+class ProductPriceInline(NestedStackedInline):
     model = ProductPrice
+    max_num = 1
+    min_num = 1
+    extra = 1
 
 
-class ProductVariationInline(admin.TabularInline):
+class ProductVariationInline(NestedTabularInline):
     model = ProductVariation
     min_num = 1
     extra = 0
 
+    inlines = [ProductPriceInline]
 
-class ProductVideoInline(admin.TabularInline):
+
+class ProductVideoInline(NestedTabularInline):
     model = ProductVideo
     min_num = 1
     extra = 0
 
 
-class ProductImageInline(admin.TabularInline):
+class ProductImageInline(NestedTabularInline):
     model = ProductImage
     min_num = 1
     extra = 0
-
+    list_display = ("Image", "Description" "display_image")
     readonly_fields = ["display_image"]
 
     def display_image(self, obj):
@@ -45,7 +51,7 @@ class ProductImageInline(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(NestedModelAdmin):
     list_display = (
         "name",
         "category",
@@ -73,13 +79,18 @@ class ProductAdmin(admin.ModelAdmin):
 
     def product_video(self, obj):
         try:
-            product_video = obj.videos.get()
-            if product_video.video_link:
-                return format_html(
-                    '<span>{}:&nbsp;<a href="{}" target="_blank">Video Link</a></span>',
-                    product_video.video_provider,
-                    product_video.video_link,
-                )
+            product_videos = obj.videos.all()
+            if product_videos:
+                video_links = [
+                    format_html(
+                        '<span>{}:&nbsp;<a href="{}" target="_blank">Video Link</a></span>',
+                        product_video.video_provider,
+                        product_video.video_link,
+                    )
+                    for product_video in product_videos
+                    if product_video.video_link
+                ]
+                return mark_safe("<br>".join(video_links))
         except ProductVideo.DoesNotExist:
             pass
 
@@ -89,9 +100,12 @@ class ProductAdmin(admin.ModelAdmin):
         variations = obj.variations.all()
         price_info = ""
         for variation in variations:
-            prices = variation.productprice_set.all()
+            prices = variation.product_variation.all()
             for price in prices:
-                price_info += f"Attributes: {', '.join(attr.name for attr in price.attributes.all())}<br>"
+                attributes = price.product_variation.attributes.all()
+                attribute_names = [attr.value for attr in attributes]
+                print(attribute_names)
+                price_info += f"Type: {attribute_names}<br>"
                 price_info += f"Unit Price: {price.unit_price}<br>"
                 price_info += f"Discount: {price.discount}%<br>"
                 price_info += f"Discount Start Date: {price.discount_start_date}<br>"
@@ -141,17 +155,20 @@ class VideoProviderAdmin(admin.ModelAdmin):
 
 
 class AttributeValueInline(admin.TabularInline):
-    model = AttributeValue
-    min_num = 1
-    extra = 0
+    model = Attribute.values.through  # Use the related name through the ManyToManyField
+    extra = 1
 
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "created_at",
-    )
+    list_display = ("name",)
     list_filter = ("name",)
     search_fields = ("name",)
     inlines = [AttributeValueInline]
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        # Automatically create AttributeValue instances when saving Attribute
+        values = request.POST.getlist("values")
+        for value_id in values:
+            obj.values.add(value_id)

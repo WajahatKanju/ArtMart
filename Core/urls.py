@@ -18,13 +18,23 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.utils.translation import gettext_lazy as _
+
 
 urlpatterns = [
     # re_path(r"^jet/", include("jet.urls", "jet")),
     path("admin/", admin.site.urls),
     re_path(r"^chaining/", include("smart_selects.urls")),
+    re_path(r"^_nested_admin/", include("nested_admin.urls")),
 ]
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.site.site_title = _("Artmart Admin")  # Change this to your desired admin title.
+admin.site.site_header = _("Artmart")  # Change this to your desired admin header.
+admin.site.index_title = _(
+    "Artmart | Dashboard"
+)  # Change this to your desired index title.

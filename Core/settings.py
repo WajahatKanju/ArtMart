@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "taggit",
     "smart_selects",
     "jazzmin",
+    "nested_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
