@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "smart_selects",
     "jazzmin",
     "nested_admin",
+    "ckeditor",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

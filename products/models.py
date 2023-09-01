@@ -70,6 +70,7 @@ ProductPrice model as follows:
 from django.db import models
 from taggit.managers import TaggableManager
 from django.db.models import Q
+from ckeditor.fields import RichTextField
 
 
 class Brand(models.Model):
@@ -144,7 +145,7 @@ class Product(models.Model):
     base_price = models.DecimalField(max_digits=8, decimal_places=2)
 
     # Product Description
-    description = models.TextField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
@@ -223,6 +224,7 @@ class ProductVariation(models.Model):
         on_delete=models.CASCADE,
         related_name="variations",
     )
+    stock_quantity = models.PositiveIntegerField()
     attributes = models.ManyToManyField(
         AttributeValue, related_name="product_variations"
     )

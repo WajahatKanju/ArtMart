@@ -10,7 +10,6 @@ from .models import (
     ProductVariation,
     ProductPrice,
     Attribute,
-    AttributeValue,
 )
 from django.utils.html import format_html, mark_safe
 
@@ -57,10 +56,10 @@ class ProductAdmin(NestedModelAdmin):
         "category",
         "brand",
         "prices",
-        "created_at",
-        "updated_at",
         "product_image",
         "product_video",
+        "created_at",
+        "updated_at",
     )
     list_filter = ("category", "brand")
 
@@ -83,7 +82,8 @@ class ProductAdmin(NestedModelAdmin):
             if product_videos:
                 video_links = [
                     format_html(
-                        '<span>{}:&nbsp;<a href="{}" target="_blank">Video Link</a></span>',
+                        '<span>{}:&nbsp;<a href="{}"\
+                            target="_blank">Video Link</a></span>',
                         product_video.video_provider,
                         product_video.video_link,
                     )
