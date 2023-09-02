@@ -47,7 +47,8 @@ This is a private Django e-commerce app for managing an online store. It provide
 
 ## Contributing
 
-This is a private app and contributions are not open to the public.
+Project is open for contribution
+
 
 ## License
 
