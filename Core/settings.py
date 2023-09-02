@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "products",
+    "users",
     "custom_admin",
     "taggit",
     "smart_selects",
@@ -134,7 +135,7 @@ MEDIA_URL = "/media/"
 
 # Authentiacation
 
-
+AUTH_USER_MODEL = "users.CustomUser"
 # AUTHENTICATION_BACKENDS = [
 #     "django.contrib.auth.backends.ModelBackend",
 #     "allauth.account.auth_backends.AuthenticationBackend",
