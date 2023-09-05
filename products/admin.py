@@ -10,6 +10,7 @@ from .models import (
     ProductVariation,
     ProductPrice,
     Attribute,
+    AttributeValue,
 )
 from django.utils.html import format_html, mark_safe
 
@@ -155,7 +156,7 @@ class VideoProviderAdmin(admin.ModelAdmin):
 
 
 class AttributeValueInline(admin.TabularInline):
-    model = Attribute.values.through  # Use the related name through the ManyToManyField
+    model = AttributeValue  #
     extra = 1
 
 

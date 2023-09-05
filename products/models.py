@@ -205,13 +205,13 @@ class ProductVideo(models.Model):
 
 class Attribute(models.Model):
     name = models.CharField(max_length=15)
-    values = models.ManyToManyField("AttributeValue", related_name="attributes")
 
     def __str__(self):
         return self.name
 
 
 class AttributeValue(models.Model):
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     value = models.CharField(max_length=15)
 
     def __str__(self):
