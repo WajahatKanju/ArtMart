@@ -71,6 +71,10 @@ from django.db import models
 from taggit.managers import TaggableManager
 from django.db.models import Q
 from ckeditor.fields import RichTextField
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Brand(models.Model):
@@ -163,6 +167,9 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    def average_rating(self):
+        return self.ratings.aggregate(models.Avg("rating"))["rating__avg"]
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(
@@ -251,3 +258,42 @@ class ProductPrice(models.Model):
 
     def __str__(self):
         return f"Price for ProductVariation ID: {self.product_variation}"
+
+
+class ProductRating(models.Model):
+    """
+    Model representing a product rating.
+    """
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="ratings",
+    )
+    user = models.ForeignKey(
+        User,  # Assuming you have a User model in your project
+        on_delete=models.CASCADE,
+    )
+    rating = models.PositiveIntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5),
+        ]
+    )
+    review = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """
+        Meta options for the ProductRating model.
+
+        Attributes:
+            unique_together (tuple):\
+                                    Ensures that each user can only rate a product once.
+        """
+
+        unique_together = ["product", "user"]
+
+    def __str__(self):
+        return f"Rating for {self.product} by {self.user}"

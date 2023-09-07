@@ -9,6 +9,7 @@ from .models import (
     ProductVideo,
     ProductVariation,
     ProductPrice,
+    ProductRating,
     Attribute,
     AttributeValue,
 )
@@ -50,6 +51,13 @@ class ProductImageInline(NestedTabularInline):
     display_image.short_description = "Image Preview"
 
 
+class ProductRatingInline(NestedTabularInline):
+    model = ProductRating
+    list_display = ("product", "user", "rating", "created_at")
+    list_filter = ("product", "user", "rating")
+    search_fields = ("product__name", "user__username")
+
+
 @admin.register(Product)
 class ProductAdmin(NestedModelAdmin):
     list_display = (
@@ -57,6 +65,7 @@ class ProductAdmin(NestedModelAdmin):
         "category",
         "brand",
         "prices",
+        "average_rating",
         "product_image",
         "product_video",
         "created_at",
@@ -123,6 +132,7 @@ class ProductAdmin(NestedModelAdmin):
         ProductVariationInline,
         ProductVideoInline,
         ProductImageInline,
+        ProductRatingInline,
     ]
 
 
