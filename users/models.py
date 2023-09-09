@@ -3,11 +3,11 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from .managers import CustomUserManager, SellerManager
+from .managers import UserManager
 from .constants import Role, PaymentPreference, BUSINESS_TYPES
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     base_role = Role.ADMIN
 
     first_name = models.CharField(
@@ -45,29 +45,18 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         null=True,
     )
 
-    company_name = models.CharField(_("Company Name"), max_length=75)
-    business_registration_number = models.CharField(
-        _("Business Registration Number"), max_length=50
-    )
-    tax_identification_number = models.CharField(
-        _("Tax Identification Number (TIN)"), max_length=50
-    )
-    business_type = models.CharField(
-        _("Business Type"), max_length=50, choices=BUSINESS_TYPES.choices
-    )
-
     role = models.CharField(max_length=50, choices=Role.choices)
 
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     phone = models.CharField(max_length=11)
     # Custom Fields
 
-    objects = CustomUserManager()
+    objects = UserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    objects = UserManager()
 
     def __str__(self) -> str:
         return f"{self.email} "
@@ -79,12 +68,19 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return super().save(*args, **kwargs)
 
 
-class Seller(CustomUser):
+class Seller(User):
     base_role = Role.SELLER
-    objects = SellerManager()
 
-    class Meta:
-        proxy = True
+    company_name = models.CharField(_("Company Name"), max_length=75)
+    business_registration_number = models.CharField(
+        _("Business Registration Number"), max_length=50
+    )
+    tax_identification_number = models.CharField(
+        _("Tax Identification Number (TIN)"), max_length=50
+    )
+    business_type = models.CharField(
+        _("Business Type"), max_length=50, choices=BUSINESS_TYPES.choices
+    )
 
     def number_of_products(self):
         return self.products.count()

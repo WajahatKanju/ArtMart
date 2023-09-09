@@ -1,12 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import CustomUser, Seller
+from .models import User, Seller
 
 
-@admin.register(CustomUser)
-class CustomUserAdmin(UserAdmin):
-    model = CustomUser
+@admin.register(User)
+class UserAdmin(UserAdmin):
+    model = User
     list_display = (
         "email",
         "first_name",
@@ -26,8 +26,8 @@ class CustomUserAdmin(UserAdmin):
             None,
             {
                 "fields": (
-                    "email",
                     ("first_name", "last_name"),
+                    "email",
                     "password",
                 )
             },
@@ -40,10 +40,6 @@ class CustomUserAdmin(UserAdmin):
                     "bank_name",
                     "bank_account_number",
                     "payment_preferences",
-                    "company_name",
-                    "business_registration_number",
-                    "tax_identification_number",
-                    "business_type",
                 ),
             },
         ),
@@ -62,26 +58,20 @@ class CustomUserAdmin(UserAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
+                    ("first_name", "last_name"),
                     "email",
-                    "first_name",
-                    "last_name",
                     "password1",
                     "password2",
-                    "is_staff",
-                    "is_active",
-                    "groups",
-                    "user_permissions",
                     "phone",
                     "bank_name",
                     "bank_account_number",
                     "payment_preferences",
-                    "company_name",
-                    "business_registration_number",
-                    "tax_identification_number",
-                    "business_type",
-                    "role",
                 ),
             },
+        ),
+        (
+            "Permissions",
+            {"fields": ("is_staff", "is_active", "groups", "user_permissions")},
         ),
     )
     search_fields = ("email",)
@@ -98,9 +88,57 @@ class SellerAdmin(UserAdmin):
             None,
             {
                 "fields": (
-                    "email",
                     ("first_name", "last_name"),
+                    "email",
                     "password",
+                )
+            },
+        ),
+        (
+            "Personal Info",
+            {
+                "fields": (
+                    "phone",
+                    "bank_name",
+                    "bank_account_number",
+                    "payment_preferences",
+                ),
+            },
+        ),
+        (
+            "Permissions",
+            {"fields": ("is_staff", "is_active", "groups", "user_permissions")},
+        ),
+        (
+            "Roles",
+            {"fields": ("role",)},
+        ),
+    )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    ("first_name", "last_name"),
+                    "email",
+                    "password1",
+                    "password2",
+                    "phone",
+                    "bank_name",
+                    "bank_account_number",
+                    "payment_preferences",
+                ),
+            },
+        ),
+        (
+            "Business Info",
+            {
+                "fields": (
+                    "company_name",
+                    "business_registration_number",
+                    "tax_identification_number",
+                    "business_type",
                 )
             },
         ),
