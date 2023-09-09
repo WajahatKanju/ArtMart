@@ -3,10 +3,13 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from .managers import CustomUserManager
+from .managers import CustomUserManager, SellerManager
+from .constants import Role, PaymentPreference, BUSINESS_TYPES
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    base_role = Role.ADMIN
+
     first_name = models.CharField(
         _("first name"),
         max_length=50,
@@ -29,13 +32,35 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             "Unselect this instead of deleting accounts."
         ),
     )
-    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
+    bank_name = models.CharField(_("Bank Name"), max_length=100, blank=True, null=True)
+    bank_account_number = models.CharField(
+        _("Bank Account Number"), max_length=50, blank=True, null=True
+    )
+    payment_preferences = models.CharField(
+        _("Payment Preferences"),
+        max_length=50,
+        choices=PaymentPreference.choices,
+        blank=True,
+        null=True,
+    )
+
+    company_name = models.CharField(_("Company Name"), max_length=75)
+    business_registration_number = models.CharField(
+        _("Business Registration Number"), max_length=50
+    )
+    tax_identification_number = models.CharField(
+        _("Tax Identification Number (TIN)"), max_length=50
+    )
+    business_type = models.CharField(
+        _("Business Type"), max_length=50, choices=BUSINESS_TYPES.choices
+    )
+
+    role = models.CharField(max_length=50, choices=Role.choices)
+
+    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
+    phone = models.CharField(max_length=11)
     # Custom Fields
-    is_admin = models.BooleanField(default=False)
-    is_delivery_boy = models.BooleanField(default=False)
-    is_seller = models.BooleanField(default=False)
-    is_customer = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
@@ -44,5 +69,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    def __str__(self):
-        return self.email
+    def __str__(self) -> str:
+        return f"{self.email} "
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.role = self.base_role
+            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
+
+
+class Seller(CustomUser):
+    base_role = Role.SELLER
+    objects = SellerManager()
+
+    class Meta:
+        proxy = True
+
+    def number_of_products(self):
+        return self.products.count()

@@ -129,6 +129,9 @@ class Product(models.Model):
 
     # Product Information
     name = models.CharField(max_length=255)
+    seller = models.ForeignKey(
+        "users.Seller", on_delete=models.CASCADE, related_name="products"
+    )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
 
