@@ -68,9 +68,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return super().save(*args, **kwargs)
 
 
-class Seller(User):
-    base_role = Role.SELLER
-
+class Seller(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     company_name = models.CharField(_("Company Name"), max_length=75)
     business_registration_number = models.CharField(
         _("Business Registration Number"), max_length=50
@@ -84,3 +83,26 @@ class Seller(User):
 
     def number_of_products(self):
         return self.products.count()
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    # Additional Customer Information
+    shipping_address = models.TextField(_("Shipping Address"), blank=True, null=True)
+    billing_address = models.TextField(_("Billing Address"), blank=True, null=True)
+
+    # order_history = models.ManyToManyField(Order, verbose_name=_("Order History"), blank=True)
+    wishlist = models.ManyToManyField(
+        "products.Product", verbose_name=_("Wishlist"), blank=True
+    )
+
+    # Customer Preferences
+    email_subscription = models.BooleanField(
+        _("Email Subscription"),
+        default=True,
+        help_text=_("Subscribe to email updates and newsletters."),
+    )
+
+    def __str__(self):
+        return f"Customer: {self.user.email}"
