@@ -1,17 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.utils.translation import gettext_lazy as _
 from .models import User, Seller, Customer
-
-
-class SellerInline(admin.StackedInline):
-    model = Seller
-    extra = 1
-
-
-class CustomerInline(admin.StackedInline):
-    model = Customer
-    extra = 1
+from .forms import SellerAdminForm
+from .constants import Role
 
 
 @admin.register(User)
@@ -88,38 +79,156 @@ class UserAdmin(BaseUserAdmin):
     ordering = ("email",)
 
 
-admin.site.register(Seller)
-admin.site.register(Customer)
-
-
-# @admin.register(Seller)
+@admin.register(Seller)
 class SellerAdmin(admin.ModelAdmin):
-    pass
-    # list_display = (
-    #     "company_name",
-    #     "business_registration_number",
-    #     "tax_identification_number",
-    #     "business_type",
-    #     # Add other fields you want to display in the list view
-    # )
+    form = SellerAdminForm
 
-    # form = SellerAdminForm  # Use the custom form for the Seller model
-    # fields = [
-    #     # List all fields you want in the form except 'user'
-    #     "company_name",
-    #     "business_registration_number",
-    #     "tax_identification_number",
-    #     "business_type",
-    #     "first_name",
-    #     "last_name",
-    #     "email",
-    #     "is_staff",
-    #     "is_active",
-    #     "bank_name",
-    #     "bank_account_number",
-    #     "payment_preferences",
-    #     "password",
-    #     "password_confirm",
-    #     # Add other fields as needed
-    # ]
-    # # Customize any other admin options as needed
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    (
+                        "first_name",
+                        "last_name",
+                    ),
+                    "email",
+                    ("password1", "password2"),
+                    "phone",
+                )
+            },
+        ),
+        (
+            "Business",
+            {
+                "fields": (
+                    "company_name",
+                    "business_registration_number",
+                    "tax_identification_number",
+                    "business_type",
+                )
+            },
+        ),
+        (
+            "Payment",
+            {
+                "fields": (
+                    "bank_name",
+                    "bank_account_number",
+                    "payment_preferences",
+                )
+            },
+        ),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_staff",
+                    "is_active",
+                )
+            },
+        ),
+    )
+
+    def save_model(self, request, obj, form, change):
+        first_name = form.cleaned_data["first_name"]
+        last_name = form.cleaned_data["last_name"]
+        email = form.cleaned_data["email"]
+        phone = form.cleaned_data["phone"]
+
+        is_staff = form.cleaned_data["is_staff"]
+        is_active = form.cleaned_data["is_active"]
+
+        bank_name = form.cleaned_data["bank_name"]
+        bank_account_number = form.cleaned_data["bank_account_number"]
+        payment_preferences = form.cleaned_data["payment_preferences"]
+        role = Role.SELLER
+
+        user, _ = User.objects.get_or_create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            is_staff=is_staff,
+            is_active=is_active,
+            bank_name=bank_name,
+            bank_account_number=bank_account_number,
+            payment_preferences=payment_preferences,
+            role=role,
+        )
+        obj.user = user
+        return super().save_model(request, obj, form, change)
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    form = SellerAdminForm
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    (
+                        "first_name",
+                        "last_name",
+                    ),
+                    "email",
+                    ("password1", "password2"),
+                    "phone",
+                )
+            },
+        ),
+        (
+            "Shipping And Billing Info",
+            {
+                "fields": (
+                    "shipping_address",
+                    "billing_address",
+                )
+            },
+        ),
+        (
+            "Payment",
+            {
+                "fields": (
+                    "bank_name",
+                    "bank_account_number",
+                    "payment_preferences",
+                )
+            },
+        ),
+        (
+            "Permissions",
+            {"fields": ("is_active",)},
+        ),
+    )
+
+    def save_model(self, request, obj, form, change):
+        first_name = form.cleaned_data["first_name"]
+        last_name = form.cleaned_data["last_name"]
+        email = form.cleaned_data["email"]
+        phone = form.cleaned_data["phone"]
+
+        is_staff = False
+        is_active = form.cleaned_data["is_active"]
+
+        bank_name = form.cleaned_data["bank_name"]
+        bank_account_number = form.cleaned_data["bank_account_number"]
+        payment_preferences = form.cleaned_data["payment_preferences"]
+        role = Role.CUSTOMER
+
+        user, _ = User.objects.get_or_create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            is_staff=is_staff,
+            is_active=is_active,
+            bank_name=bank_name,
+            bank_account_number=bank_account_number,
+            payment_preferences=payment_preferences,
+            role=role,
+        )
+        obj.user = user
+        return super().save_model(request, obj, form, change)

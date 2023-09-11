@@ -1,8 +1,14 @@
 from django import forms
-from .models import Seller
-from django.utils.translation import gettext_lazy as _
+from .models import Seller, Customer
 
 from .constants import PaymentPreference
+
+
+class CustomPasswordInput(forms.PasswordInput):
+    def render(self, name, value, attrs=None, renderer=None):
+        # Add custom rendering here
+        output = super().render(name, value, attrs, renderer)
+        return output
 
 
 class SellerAdminForm(forms.ModelForm):
@@ -14,6 +20,33 @@ class SellerAdminForm(forms.ModelForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
+    password1 = forms.CharField(
+        label="Password",
+        widget=CustomPasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "required": True,
+                "id": "id_password1",
+            }
+        ),
+        help_text=(
+            "Your password can't be too similar to your other personal information.<br>"
+            "Your password must contain at least 8 characters.<br>"
+            "Your password can't be a commonly used password.<br>"
+            "Your password can't be entirely numeric."
+        ),
+    )
+    password2 = forms.CharField(
+        label="Confirm Password",
+        widget=CustomPasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "required": True,
+                "id": "id_password2",
+            }
+        ),
+    )
+    phone = forms.CharField()
     is_staff = forms.BooleanField()
     is_active = forms.BooleanField()
 
@@ -23,17 +56,48 @@ class SellerAdminForm(forms.ModelForm):
         choices=PaymentPreference.choices,
     )
 
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
-    )
-    password_confirm = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
-    )
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        password_confirm = cleaned_data.get("password_confirm")
+class CustomerAdminForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = "__all__"  # Include all fields from the Seller model
 
-        if password and password_confirm and password != password_confirm:
-            raise forms.ValidationError("Passwords do not match.")
+    # Include fields from the related User model
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.EmailField()
+    password1 = forms.CharField(
+        label="Password",
+        widget=CustomPasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "required": True,
+                "id": "id_password1",
+            }
+        ),
+        help_text=(
+            "Your password can't be too similar to your other personal information.<br>"
+            "Your password must contain at least 8 characters.<br>"
+            "Your password can't be a commonly used password.<br>"
+            "Your password can't be entirely numeric."
+        ),
+    )
+    password2 = forms.CharField(
+        label="Confirm Password",
+        widget=CustomPasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "required": True,
+                "id": "id_password2",
+            }
+        ),
+    )
+    phone = forms.CharField()
+    is_staff = forms.BooleanField()
+    is_active = forms.BooleanField()
+
+    bank_name = forms.CharField()
+    bank_account_number = forms.CharField()
+    payment_preferences = forms.ChoiceField(
+        choices=PaymentPreference.choices,
+    )

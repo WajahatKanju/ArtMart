@@ -4,6 +4,7 @@ from django.db import models
 class Role(models.TextChoices):
     ADMIN = "ADMIN", "Admin"
     SELLER = "SELLER", "Seller/Merchant"
+    CUSTOMER = "CUSTOMER", "CUSTOMER/Shopper"
 
 
 class PaymentPreference(models.TextChoices):

@@ -81,6 +81,9 @@ class Seller(models.Model):
         _("Business Type"), max_length=50, choices=BUSINESS_TYPES.choices
     )
 
+    def __str__(self):
+        return self.company_name
+
     def number_of_products(self):
         return self.products.count()
 
@@ -92,7 +95,6 @@ class Customer(models.Model):
     shipping_address = models.TextField(_("Shipping Address"), blank=True, null=True)
     billing_address = models.TextField(_("Billing Address"), blank=True, null=True)
 
-    # order_history = models.ManyToManyField(Order, verbose_name=_("Order History"), blank=True)
     wishlist = models.ManyToManyField(
         "products.Product", verbose_name=_("Wishlist"), blank=True
     )
