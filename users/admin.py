@@ -1,8 +1,41 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Seller, Customer
-from .forms import SellerAdminForm
-from .constants import Role
+from .models import (
+    User,
+    Seller,
+    Customer,
+    DeliveryDriver,
+    Administrator,
+    AffiliateMarketer,
+    CustomerServiceRepresentative,
+    MarketingManager,
+    ProductManager,
+    SocialMediaInfluencer,
+    SalesRepresentative,
+    LogisticsCoordinator,
+    FinancialAnalyst,
+    DataAnalyst,
+    LegalCounsel,
+    InventoryManager,
+)
+from .forms import (
+    SellerAdminForm,
+    CustomerAdminForm,
+    DeliveryDriverAdminForm,
+    AdministratorAdminForm,
+    AffiliateMarketerAdminForm,
+    CustomerServiceRepresentativeAdminForm,
+    MarketingManagerAdminForm,
+    ProductManagerAdminForm,
+    SocialMediaInfluencerAdminForm,
+    SalesRepresentativeAdminForm,
+    LogisticsCoordinatorAdminForm,
+    FinancialAnalystAdminForm,
+    DataAnalystAdminForm,
+    LegalCounselAdminForm,
+    InventoryManagerAdminForm,
+)
+from .admin_extras import generate_fieldsets, UserMixin
 
 
 @admin.register(User)
@@ -80,155 +113,132 @@ class UserAdmin(BaseUserAdmin):
 
 
 @admin.register(Seller)
-class SellerAdmin(admin.ModelAdmin):
+class SellerAdmin(admin.ModelAdmin, UserMixin):
     form = SellerAdminForm
-
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    (
-                        "first_name",
-                        "last_name",
-                    ),
-                    "email",
-                    ("password1", "password2"),
-                    "phone",
-                )
-            },
-        ),
-        (
-            "Business",
-            {
-                "fields": (
-                    "company_name",
-                    "business_registration_number",
-                    "tax_identification_number",
-                    "business_type",
-                )
-            },
-        ),
-        (
-            "Payment",
-            {
-                "fields": (
-                    "bank_name",
-                    "bank_account_number",
-                    "payment_preferences",
-                )
-            },
-        ),
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_staff",
-                    "is_active",
-                )
-            },
-        ),
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Business", "Payment", "Permissions"],
     )
-
-    def save_model(self, request, obj, form, change):
-        first_name = form.cleaned_data["first_name"]
-        last_name = form.cleaned_data["last_name"]
-        email = form.cleaned_data["email"]
-        phone = form.cleaned_data["phone"]
-
-        is_staff = form.cleaned_data["is_staff"]
-        is_active = form.cleaned_data["is_active"]
-
-        bank_name = form.cleaned_data["bank_name"]
-        bank_account_number = form.cleaned_data["bank_account_number"]
-        payment_preferences = form.cleaned_data["payment_preferences"]
-        role = Role.SELLER
-
-        user, _ = User.objects.get_or_create(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            phone=phone,
-            is_staff=is_staff,
-            is_active=is_active,
-            bank_name=bank_name,
-            bank_account_number=bank_account_number,
-            payment_preferences=payment_preferences,
-            role=role,
-        )
-        obj.user = user
-        return super().save_model(request, obj, form, change)
 
 
 @admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-    form = SellerAdminForm
-
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    (
-                        "first_name",
-                        "last_name",
-                    ),
-                    "email",
-                    ("password1", "password2"),
-                    "phone",
-                )
-            },
-        ),
-        (
+class CustomerAdmin(admin.ModelAdmin, UserMixin):
+    form = CustomerAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
             "Shipping And Billing Info",
-            {
-                "fields": (
-                    "shipping_address",
-                    "billing_address",
-                )
-            },
-        ),
-        (
             "Payment",
-            {
-                "fields": (
-                    "bank_name",
-                    "bank_account_number",
-                    "payment_preferences",
-                )
-            },
-        ),
-        (
             "Permissions",
-            {"fields": ("is_active",)},
-        ),
+        ],
     )
 
-    def save_model(self, request, obj, form, change):
-        first_name = form.cleaned_data["first_name"]
-        last_name = form.cleaned_data["last_name"]
-        email = form.cleaned_data["email"]
-        phone = form.cleaned_data["phone"]
 
-        is_staff = False
-        is_active = form.cleaned_data["is_active"]
+@admin.register(DeliveryDriver)
+class DeliveryAdmin(admin.ModelAdmin, UserMixin):
+    form = DeliveryDriverAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Driver Info",
+            "Payment",
+            "Permissions",
+        ],
+    )
 
-        bank_name = form.cleaned_data["bank_name"]
-        bank_account_number = form.cleaned_data["bank_account_number"]
-        payment_preferences = form.cleaned_data["payment_preferences"]
-        role = Role.CUSTOMER
 
-        user, _ = User.objects.get_or_create(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            phone=phone,
-            is_staff=is_staff,
-            is_active=is_active,
-            bank_name=bank_name,
-            bank_account_number=bank_account_number,
-            payment_preferences=payment_preferences,
-            role=role,
-        )
-        obj.user = user
-        return super().save_model(request, obj, form, change)
+@admin.register(Administrator)
+class AdministratorAdmin(admin.ModelAdmin, UserMixin):
+    form = AdministratorAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Payment"],
+    )
+
+
+@admin.register(AffiliateMarketer)
+class AffiliateMarketerAdmin(admin.ModelAdmin, UserMixin):
+    form = AffiliateMarketerAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Payment", "Permissions", "Affiliate Marketer"],
+    )
+
+
+@admin.register(CustomerServiceRepresentative)
+class CustomerServiceRepresentativeAdmin(admin.ModelAdmin, UserMixin):
+    form = CustomerServiceRepresentativeAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Payment",
+            "Permissions",
+            "Customer Service Staff Representative",
+        ],
+    )
+
+
+@admin.register(MarketingManager)
+class MarketingManagerAdmin(admin.ModelAdmin, UserMixin):
+    form = MarketingManagerAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Payment",
+            "Permissions",
+            "Marketing Info",
+        ],
+    )
+
+
+@admin.register(ProductManager)
+class ProductManagerAdmin(admin.ModelAdmin, UserMixin):
+    form = ProductManagerAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Payment", "Permissions", "Product Info"],
+    )
+
+
+@admin.register(SocialMediaInfluencer)
+class SocialMediaInfluencerAdmin(admin.ModelAdmin, UserMixin):
+    form = SocialMediaInfluencerAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Payment", "Permissions", "Social Info"],
+    )
+
+
+@admin.register(SalesRepresentative)
+class SalesRepresentativeAdmin(admin.ModelAdmin, UserMixin):
+    form = SalesRepresentativeAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Payment", "Permissions", "Sales infos"],
+    )
+
+
+@admin.register(LogisticsCoordinator)
+class LogisticsCoordinatorAdmin(admin.ModelAdmin, UserMixin):
+    form = LogisticsCoordinatorAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=["Personal Info", "Payment", "Permissions", "Logistics Info"],
+    )
+
+
+@admin.register(LegalCounsel)
+class LegalCounselAdmin(admin.ModelAdmin, UserMixin):
+    form = LegalCounselAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Payment",
+            "Permissions",
+        ],
+    )
+
+
+@admin.register(InventoryManager)
+class InventoryManagerAdmin(admin.ModelAdmin, UserMixin):
+    form = InventoryManagerAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Payment",
+            "Permissions",
+        ],
+    )

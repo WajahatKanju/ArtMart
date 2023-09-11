@@ -1,0 +1,149 @@
+class ProductSKU(models.Model):
+    sku = models.CharField(max_length=50)
+    product_name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = _("Product SKU")
+        verbose_name_plural = _("Product SKUs")
+
+    def __str__(self) -> str:
+        return self.sku
+
+
+class ShippingMethod(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name = _("Shipping Method")
+        verbose_name_plural = _("Shipping Methods")
+
+    def __str__(self) -> str:
+        return self.name
+
+class DeliverySchedule(models.Model):
+    schedule_date = models.DateField()
+    schedule_time = models.TimeField()
+    description = models.TextField()
+
+    class Meta:
+        verbose_name = _("Delivery Schedule")
+        verbose_name_plural = _("Delivery Schedules")
+
+    def __str__(self) -> str:
+        return f"{self.schedule_date} - {self.schedule_time}"
+
+class MarketingCampaign(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    class Meta:
+        verbose_name = _("Marketing Campaign")
+        verbose_name_plural = _("Marketing Campaigns")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class SupportTicket(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    assigned_to = models.ForeignKey(
+        CustomerServiceRepresentative, on_delete=models.SET_NULL, blank=True, null=True
+    )
+
+    class Meta:
+        verbose_name = _("Support Ticket")
+        verbose_name_plural = _("Support Tickets")
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class AffiliateLink(models.Model):
+    affiliate_marketer = models.ForeignKey(AffiliateMarketer, on_delete=models.CASCADE)
+    affiliate_link = models.URLField(max_length=255)
+
+    class Meta:
+        verbose_name = _("Affiliate Link")
+        verbose_name_plural = _("Affiliate Links")
+
+
+class ReferralCode(models.Model):
+    affiliate_marketer = models.ForeignKey(AffiliateMarketer, on_delete=models.CASCADE)
+    referral_code = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = _("Referral Code")
+        verbose_name_plural = _("Referral Codes")
+
+
+class DataSource(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name = _("Data Source")
+        verbose_name_plural = _("Data Sources")
+
+    def __str__(self) -> str:
+        return self.name
+
+class DataReport(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    report_file = models.FileField(upload_to='data_reports/')
+
+    class Meta:
+        verbose_name = _("Data Report")
+        verbose_name_plural = _("Data Reports")
+
+    def __str__(self) -> str:
+        return self.title
+
+class LegalDocument(models.Model):
+    title = models.CharField(max_length=100)
+    document_file = models.FileField(upload_to='legal_documents/')
+
+    class Meta:
+        verbose_name = _("Legal Document")
+        verbose_name_plural = _("Legal Documents")
+
+    def __str__(self) -> str:
+        return self.title
+
+class LegalCase(models.Model):
+    case_name = models.CharField(max_length=100)
+    case_description = models.TextField()
+
+    class Meta:
+        verbose_name = _("Legal Case")
+        verbose_name_plural = _("Legal Cases")
+
+    def __str__(self) -> str:
+        return self.case_name
+
+        
+class StockLevel(models.Model):
+    product_name = models.CharField(max_length=100)
+    quantity = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = _("Stock Level")
+        verbose_name_plural = _("Stock Levels")
+
+    def __str__(self) -> str:
+        return f"{self.product_name} - {self.quantity}"
+
+class ReorderPoint(models.Model):
+    product_name = models.CharField(max_length=100)
+    reorder_quantity = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = _("Reorder Point")
+        verbose_name_plural = _("Reorder Points")
+
+    def __str__(self) -> str:
+        return f"{self.product_name} - {self.reorder_quantity}"

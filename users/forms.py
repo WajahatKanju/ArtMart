@@ -1,6 +1,21 @@
 from django import forms
-from .models import Seller, Customer
-
+from .models import (
+    Seller,
+    Customer,
+    DeliveryDriver,
+    Administrator,
+    AffiliateMarketer,
+    CustomerServiceRepresentative,
+    MarketingManager,
+    ProductManager,
+    SocialMediaInfluencer,
+    SalesRepresentative,
+    LogisticsCoordinator,
+    FinancialAnalyst,
+    DataAnalyst,
+    LegalCounsel,
+    InventoryManager,
+)
 from .constants import PaymentPreference
 
 
@@ -11,93 +26,135 @@ class CustomPasswordInput(forms.PasswordInput):
         return output
 
 
-class SellerAdminForm(forms.ModelForm):
+class BaseAdminForm(forms.ModelForm):
+    class Meta:
+        abstract = True
+
+    # Fields common to both Seller and Customer
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.EmailField()
+    password1 = forms.CharField(
+        label="Password",
+        widget=CustomPasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "required": True,
+                "id": "id_password1",
+            }
+        ),
+        help_text=(
+            "Your password can't be too similar to your other personal information.<br>"
+            "Your password must contain at least 8 characters.<br>"
+            "Your password can't be a commonly used password.<br>"
+            "Your password can't be entirely numeric."
+        ),
+    )
+    password2 = forms.CharField(
+        label="Confirm Password",
+        widget=CustomPasswordInput(
+            attrs={
+                "autocomplete": "new-password",
+                "required": True,
+                "id": "id_password2",
+            }
+        ),
+    )
+    phone = forms.CharField()
+    is_staff = forms.BooleanField()
+    is_active = forms.BooleanField()
+    bank_name = forms.CharField()
+    bank_account_number = forms.CharField()
+    payment_preferences = forms.ChoiceField(
+        choices=PaymentPreference.choices,
+    )
+
+
+class SellerAdminForm(BaseAdminForm):
     class Meta:
         model = Seller
         fields = "__all__"  # Include all fields from the Seller model
 
-    # Include fields from the related User model
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    password1 = forms.CharField(
-        label="Password",
-        widget=CustomPasswordInput(
-            attrs={
-                "autocomplete": "new-password",
-                "required": True,
-                "id": "id_password1",
-            }
-        ),
-        help_text=(
-            "Your password can't be too similar to your other personal information.<br>"
-            "Your password must contain at least 8 characters.<br>"
-            "Your password can't be a commonly used password.<br>"
-            "Your password can't be entirely numeric."
-        ),
-    )
-    password2 = forms.CharField(
-        label="Confirm Password",
-        widget=CustomPasswordInput(
-            attrs={
-                "autocomplete": "new-password",
-                "required": True,
-                "id": "id_password2",
-            }
-        ),
-    )
-    phone = forms.CharField()
-    is_staff = forms.BooleanField()
-    is_active = forms.BooleanField()
 
-    bank_name = forms.CharField()
-    bank_account_number = forms.CharField()
-    payment_preferences = forms.ChoiceField(
-        choices=PaymentPreference.choices,
-    )
-
-
-class CustomerAdminForm(forms.ModelForm):
+class CustomerAdminForm(BaseAdminForm):
     class Meta:
         model = Customer
-        fields = "__all__"  # Include all fields from the Seller model
+        fields = "__all__"  # Include all fields from the Customer model
 
-    # Include fields from the related User model
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    password1 = forms.CharField(
-        label="Password",
-        widget=CustomPasswordInput(
-            attrs={
-                "autocomplete": "new-password",
-                "required": True,
-                "id": "id_password1",
-            }
-        ),
-        help_text=(
-            "Your password can't be too similar to your other personal information.<br>"
-            "Your password must contain at least 8 characters.<br>"
-            "Your password can't be a commonly used password.<br>"
-            "Your password can't be entirely numeric."
-        ),
-    )
-    password2 = forms.CharField(
-        label="Confirm Password",
-        widget=CustomPasswordInput(
-            attrs={
-                "autocomplete": "new-password",
-                "required": True,
-                "id": "id_password2",
-            }
-        ),
-    )
-    phone = forms.CharField()
-    is_staff = forms.BooleanField()
-    is_active = forms.BooleanField()
 
-    bank_name = forms.CharField()
-    bank_account_number = forms.CharField()
-    payment_preferences = forms.ChoiceField(
-        choices=PaymentPreference.choices,
-    )
+class DeliveryDriverAdminForm(BaseAdminForm):
+    class Meta:
+        model = DeliveryDriver
+        fields = "__all__"
+
+
+class AdministratorAdminForm(BaseAdminForm):
+    class Meta:
+        model = Administrator
+        fields = "__all__"
+
+
+class AffiliateMarketerAdminForm(BaseAdminForm):
+    class Meta:
+        model = AffiliateMarketer
+        fields = "__all__"
+
+
+class CustomerServiceRepresentativeAdminForm(BaseAdminForm):
+    class Meta:
+        model = CustomerServiceRepresentative
+        fields = "__all__"
+
+
+class MarketingManagerAdminForm(BaseAdminForm):
+    class Meta:
+        model = MarketingManager
+        fields = "__all__"
+
+
+class ProductManagerAdminForm(BaseAdminForm):
+    class Meta:
+        model = ProductManager
+        fields = "__all__"
+
+
+class SocialMediaInfluencerAdminForm(BaseAdminForm):
+    class Meta:
+        model = SocialMediaInfluencer
+        fields = "__all__"
+
+
+class SalesRepresentativeAdminForm(BaseAdminForm):
+    class Meta:
+        model = SalesRepresentative
+        fields = "__all__"
+
+
+class LogisticsCoordinatorAdminForm(BaseAdminForm):
+    class Meta:
+        model = LogisticsCoordinator
+        fields = "__all__"
+
+
+class FinancialAnalystAdminForm(BaseAdminForm):
+    class Meta:
+        model = FinancialAnalyst
+        fields = "__all__"
+
+
+class DataAnalystAdminForm(BaseAdminForm):
+    class Meta:
+        model = DataAnalyst
+        fields = "__all__"
+
+
+class LegalCounselAdminForm(BaseAdminForm):
+    class Meta:
+        model = LegalCounsel
+        fields = "__all__"
+
+
+class InventoryManagerAdminForm(BaseAdminForm):
+    class Meta:
+        model = InventoryManager
+        fields = "__all__"
