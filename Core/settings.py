@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "users",
     "custom_admin",
     "taggit",
+    "orders",
     "smart_selects",
     "jazzmin",
     "nested_admin",
