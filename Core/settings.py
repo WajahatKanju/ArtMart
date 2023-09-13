@@ -185,7 +185,7 @@ JAZZMIN_SETTINGS = {
         "Users.LogisticsCoordinator": "fa-solid fa-truck",
         "Users.FinancialAnalyst": "fa-solid fa-coins",
         "Users.DataAnalyst": "fa-solid fa-dollar-sign",
-        "Users.LegalCounsel": "fa-solid fa-database",
-        "Users.InventoryManager": "fa-solid fa-scale-balanced",
+        "Users.LegalCounsel": "fa-solid fa-scale-balanced",
+        "Users.InventoryManager": "fa-solid fa-server",
     },
 }

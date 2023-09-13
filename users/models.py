@@ -59,6 +59,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return f"{self.email} "
 
+    def name(self) -> str:
+        if len(self.first_name + self.last_name) > 0:
+            return self.first_name + self.last_name
+        return "UNDEFINED"
+
 
 class Seller(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
