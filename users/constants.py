@@ -5,6 +5,18 @@ class Role(models.TextChoices):
     ADMIN = "ADMIN", "Admin"
     SELLER = "SELLER", "Seller/Merchant"
     CUSTOMER = "CUSTOMER", "CUSTOMER/Shopper"
+    AFFILIATE_MARKETER = "AFFILIATE_MARKETER", "Affiliate Marketer"
+    CUSTOMER_SERVICE_REPRESENTATIVE = (
+        "CUSTOMER_SERVICE_REPRESENTATIVE",
+        "Customer Service Representative",
+    )
+    MARKETING_MANAGER = "MARKETING_MANAGER", "Marketing Manager"
+    PRODUCT_MANAGER = "PRODUCT_MANAGER", "Product Manager"
+    SOCIAL_MEDIA_INFLUENCER = "SOCIAL_MEDIA_INFLUENCER", "Social Media Influencer"
+    SALES_REPRESENTATIVE = "SALES_REPRESENTATIVE", "Sales Representative"
+    LOGISTICS_COORDINATOR = "LOGISTICS_COORDINATOR", "Logistics Coordinator"
+    LEGAL_COUNSEL = "LEGAL_COUNSEL", "Legal Counsel"
+    INVENTORY_MANAGER = "INVENTORY_MANAGER", "Inventory Manager"
 
 
 class PaymentPreference(models.TextChoices):

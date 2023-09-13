@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .constants import Role
 from .models import (
     User,
     Seller,
@@ -113,7 +114,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 @admin.register(Seller)
-class SellerAdmin(admin.ModelAdmin, UserMixin):
+class SellerAdmin(UserMixin):
     form = SellerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Business", "Payment", "Permissions"],
@@ -121,7 +122,7 @@ class SellerAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin, UserMixin):
+class CustomerAdmin(UserMixin):
     form = CustomerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=[
@@ -134,7 +135,7 @@ class CustomerAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(DeliveryDriver)
-class DeliveryAdmin(admin.ModelAdmin, UserMixin):
+class DeliveryAdmin(UserMixin):
     form = DeliveryDriverAdminForm
     fieldsets = generate_fieldsets(
         include_parts=[
@@ -147,7 +148,7 @@ class DeliveryAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(Administrator)
-class AdministratorAdmin(admin.ModelAdmin, UserMixin):
+class AdministratorAdmin(UserMixin):
     form = AdministratorAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Payment"],
@@ -155,15 +156,16 @@ class AdministratorAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(AffiliateMarketer)
-class AffiliateMarketerAdmin(admin.ModelAdmin, UserMixin):
+class AffiliateMarketerAdmin(UserMixin):
     form = AffiliateMarketerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Payment", "Permissions", "Affiliate Marketer"],
     )
+    role = Role.AFFILIATE_MARKETER
 
 
 @admin.register(CustomerServiceRepresentative)
-class CustomerServiceRepresentativeAdmin(admin.ModelAdmin, UserMixin):
+class CustomerServiceRepresentativeAdmin(UserMixin):
     form = CustomerServiceRepresentativeAdminForm
     fieldsets = generate_fieldsets(
         include_parts=[
@@ -176,7 +178,7 @@ class CustomerServiceRepresentativeAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(MarketingManager)
-class MarketingManagerAdmin(admin.ModelAdmin, UserMixin):
+class MarketingManagerAdmin(UserMixin):
     form = MarketingManagerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=[
@@ -189,7 +191,7 @@ class MarketingManagerAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(ProductManager)
-class ProductManagerAdmin(admin.ModelAdmin, UserMixin):
+class ProductManagerAdmin(UserMixin):
     form = ProductManagerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Payment", "Permissions", "Product Info"],
@@ -197,7 +199,7 @@ class ProductManagerAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(SocialMediaInfluencer)
-class SocialMediaInfluencerAdmin(admin.ModelAdmin, UserMixin):
+class SocialMediaInfluencerAdmin(UserMixin):
     form = SocialMediaInfluencerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Payment", "Permissions", "Social Info"],
@@ -205,7 +207,7 @@ class SocialMediaInfluencerAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(SalesRepresentative)
-class SalesRepresentativeAdmin(admin.ModelAdmin, UserMixin):
+class SalesRepresentativeAdmin(UserMixin):
     form = SalesRepresentativeAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Payment", "Permissions", "Sales infos"],
@@ -213,7 +215,7 @@ class SalesRepresentativeAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(LogisticsCoordinator)
-class LogisticsCoordinatorAdmin(admin.ModelAdmin, UserMixin):
+class LogisticsCoordinatorAdmin(UserMixin):
     form = LogisticsCoordinatorAdminForm
     fieldsets = generate_fieldsets(
         include_parts=["Personal Info", "Payment", "Permissions", "Logistics Info"],
@@ -221,7 +223,7 @@ class LogisticsCoordinatorAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(LegalCounsel)
-class LegalCounselAdmin(admin.ModelAdmin, UserMixin):
+class LegalCounselAdmin(UserMixin):
     form = LegalCounselAdminForm
     fieldsets = generate_fieldsets(
         include_parts=[
@@ -233,12 +235,38 @@ class LegalCounselAdmin(admin.ModelAdmin, UserMixin):
 
 
 @admin.register(InventoryManager)
-class InventoryManagerAdmin(admin.ModelAdmin, UserMixin):
+class InventoryManagerAdmin(UserMixin):
     form = InventoryManagerAdminForm
     fieldsets = generate_fieldsets(
         include_parts=[
             "Personal Info",
             "Payment",
+            "Permissions",
+        ],
+    )
+
+
+@admin.register(FinancialAnalyst)
+class FinancialAnalystAdmin(UserMixin):
+    form = FinancialAnalystAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Payment",
+            "Financial Info",
+            "Permissions",
+        ],
+    )
+
+
+@admin.register(DataAnalyst)
+class DataAnalystAdmin(UserMixin):
+    form = DataAnalystAdminForm
+    fieldsets = generate_fieldsets(
+        include_parts=[
+            "Personal Info",
+            "Payment",
+            "Data Analyst Info",
             "Permissions",
         ],
     )

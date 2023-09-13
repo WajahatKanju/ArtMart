@@ -126,6 +126,11 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    "/var/www/static/",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -152,3 +157,35 @@ AUTH_USER_MODEL = "users.User"
 # ACCOUNT_EMAIL_VERIFICATION = None
 # ACCOUNT_EMAIL_REQUIRED = True
 # LOGIN_REDIRECT_URL = "/"
+
+
+JAZZMIN_SETTINGS = {
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fa-solid fa-people-group",
+        "Products.Attribute": "fa-solid fa-table-list",
+        "Products.Brand": "fa-solid fa-certificate",
+        "Products.Category": "fa-solid fa-table-cells-large",
+        "Products.Product": "fa-brands fa-product-hunt",
+        "Products.VideoProvider": "fa-solid fa-video",
+        "Taggit.Tag": "fa-solid fa-tags",
+        # Users
+        "Users.User": "fa-solid fa-users",
+        "Users.Seller": "fa-solid fa-shop",
+        "Users.Customer": "fa-solid fa-person",
+        "Users.DeliveryDriver": "fa-solid fa-person-biking",
+        "Users.Administrator": "fas fa-hat-cowboy",
+        "Users.AffiliateMarketer": "fa-brands fa-affiliatetheme",
+        "Users.CustomerServiceRepresentative": "fa-solid fa-headset",
+        "Users.MarketingManager": "fa-solid fa-bullhorn",
+        "Users.ProductManager": "fa-solid fa-user-tie",
+        "Users.SocialMediaInfluencer": "fa-solid fa-user-secret",
+        "Users.SalesRepresentative": "fa-brands fa-black-tie",
+        "Users.LogisticsCoordinator": "fa-solid fa-truck",
+        "Users.FinancialAnalyst": "fa-solid fa-coins",
+        "Users.DataAnalyst": "fa-solid fa-dollar-sign",
+        "Users.LegalCounsel": "fa-solid fa-database",
+        "Users.InventoryManager": "fa-solid fa-scale-balanced",
+    },
+}

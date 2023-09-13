@@ -8,8 +8,6 @@ from .constants import Role, PaymentPreference, BUSINESS_TYPES
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    base_role = Role.ADMIN
-
     first_name = models.CharField(
         _("first name"),
         max_length=50,
@@ -60,12 +58,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self) -> str:
         return f"{self.email} "
-
-    def save(self, *args, **kwargs) -> None:
-        if not self.pk:
-            self.role = self.base_role
-            return super().save(*args, **kwargs)
-        return super().save(*args, **kwargs)
 
 
 class Seller(models.Model):
@@ -138,6 +130,7 @@ class Administrator(models.Model):
 class AffiliateMarketer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     marketing_campaign = models.CharField(max_length=100, blank=True, null=True)
+    base_role = Role.AFFILIATE_MARKETER
 
     class Meta:
         verbose_name = _("Affiliate Marketer")

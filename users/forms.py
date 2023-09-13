@@ -16,7 +16,7 @@ from .models import (
     LegalCounsel,
     InventoryManager,
 )
-from .constants import PaymentPreference
+from .constants import PaymentPreference, Role
 
 
 class CustomPasswordInput(forms.PasswordInput):
@@ -61,8 +61,8 @@ class BaseAdminForm(forms.ModelForm):
         ),
     )
     phone = forms.CharField()
-    is_staff = forms.BooleanField()
-    is_active = forms.BooleanField()
+    is_staff = forms.BooleanField(required=False)
+    is_active = forms.BooleanField(required=False)
     bank_name = forms.CharField()
     bank_account_number = forms.CharField()
     payment_preferences = forms.ChoiceField(
@@ -98,6 +98,14 @@ class AffiliateMarketerAdminForm(BaseAdminForm):
     class Meta:
         model = AffiliateMarketer
         fields = "__all__"
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.role = Role.AFFILIATE_MARKETER  # Set the role to Seller
+
+        if commit:
+            user.save()
+        return user
 
 
 class CustomerServiceRepresentativeAdminForm(BaseAdminForm):

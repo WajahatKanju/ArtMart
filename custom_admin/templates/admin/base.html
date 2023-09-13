@@ -17,6 +17,7 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{% static "vendor/fontawesome-free/css/all.min.css" %}">
+    <link rel="stylesheet" href="{% static "vendor/fontawesome-free-6.4.2/css/all.min.css" %}">
 
     <!-- Bootstrap and adminLTE -->
     <link rel="stylesheet" href="{% static "vendor/adminlte/css/adminlte.min.css" %}" id="adminlte-css">
@@ -327,7 +328,7 @@
                 <b>{% trans 'Wajahat Ahmad' %}</b>
             </div>
             {% autoescape off %}
-                <strong>{% trans 'Copyright' %} &copy; {% now 'Y' %} {{ jazzmin_settings.copyright }}.</strong> {% trans 'All rights reserved.' %}
+                Artmart <strong>{% trans 'Copyright' %} &copy; {% now 'Y' %} {{ jazzmin_settings.copyright }}.</strong> {% trans 'All rights reserved.' %}
             {% endautoescape %}
         </footer>
         {% if jazzmin_settings.show_ui_builder %}

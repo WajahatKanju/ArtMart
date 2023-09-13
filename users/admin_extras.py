@@ -1,9 +1,13 @@
 from .constants import Role
 from typing import Any
 from .models import User
+from django.contrib import admin
 
 
-class UserMixin:
+class UserMixin(admin.ModelAdmin):
+    class Meta:
+        abstract = True
+
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         first_name = form.cleaned_data["first_name"]
         last_name = form.cleaned_data["last_name"]
@@ -82,7 +86,7 @@ def generate_fieldsets(include_parts=None):
             "tracking_information",
             "delivery_schedules",
         ),
-        "Financial Info": ("dinancial_data", "reports", "forecasting_models"),
+        "Financial Info": ("financial_data", "reports", "forecasting_models"),
         "Data Analyst Info": (
             "data_sources",
             "analysis_methodologies",
