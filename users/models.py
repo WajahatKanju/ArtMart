@@ -4,7 +4,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .managers import UserManager
-from .constants import Role, PaymentPreference, BUSINESS_TYPES
+from .constants import Role, BUSINESS_TYPES
+from orders.constants import PaymentMethod
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -38,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     payment_preferences = models.CharField(
         _("Payment Preferences"),
         max_length=50,
-        choices=PaymentPreference.choices,
+        choices=PaymentMethod.choices,
         blank=True,
         null=True,
     )

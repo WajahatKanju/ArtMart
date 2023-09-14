@@ -188,5 +188,16 @@ JAZZMIN_SETTINGS = {
         "Users.DataAnalyst": "fa-solid fa-dollar-sign",
         "Users.LegalCounsel": "fa-solid fa-scale-balanced",
         "Users.InventoryManager": "fa-solid fa-server",
+        # Orders
+        "Orders.Cart": "fa-solid fa-cart-shopping",
+        "Orders.CartItem": "fa-solid fa-cart-plus",
+        "Orders.Order": "fa-solid fa-box-open",
+        "Orders.OrderItem": "fa-solid  fa-people-carry-box",
+        "Orders.OrderStatus": "fa-solid fa-location-dot",
+        "Orders.Item": "fa-solid fa-location-dot",
+        "Orders.Shipping": "fa-solid fa-truck-plane",
+        "Orders.ShippingStatus": "fa-solid fa-plane-circle-exclamation",
+        "Orders.Invoice": "fa-solid fa-file-invoice",
+        "Orders.Return": "fa-solid fa-boxes-packing",
     },
 }

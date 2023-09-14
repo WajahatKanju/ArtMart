@@ -145,7 +145,6 @@ class Product(models.Model):
     min_purchase_qty = models.PositiveIntegerField()
 
     tags = TaggableManager()
-
     barcode = models.CharField(max_length=50, blank=True, null=True)
     refundable = models.BooleanField(default=False)
 
