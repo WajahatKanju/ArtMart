@@ -23,6 +23,7 @@ from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
     # re_path(r"^jet/", include("jet.urls", "jet")),
+    path("", include("shop.urls")),
     path("admin/", admin.site.urls),
     re_path(r"^chaining/", include("smart_selects.urls")),
     re_path(r"^_nested_admin/", include("nested_admin.urls")),
