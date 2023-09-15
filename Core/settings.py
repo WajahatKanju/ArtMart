@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "orders",
     "shop",
     "smart_selects",
+    "debug_toolbar",
     "jazzmin",
     "nested_admin",
     "ckeditor",
@@ -58,6 +59,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+]
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
 ]
 
 ROOT_URLCONF = "Core.urls"
