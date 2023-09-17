@@ -8,6 +8,11 @@
     {% include 'includes/style.html'%}
 </head>
 <body>
+    <header>
+        {% block header %}
+            {% include 'includes/header.html'%}
+        {% endblock header %}
+    </header>
     <main>
         {% block content %}
             <h1>Hello There</h1>
@@ -15,6 +20,8 @@
     </main>
     <footer>
     </footer>
-    <script src="{% static 'js/scripts.js' %}"></script>
+    {% block scripts %}
+        {% include "includes/scripts.html" %}
+    {% endblock scripts %}
 </body>
 </html>

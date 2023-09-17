@@ -1,0 +1,43 @@
+.navbar{
+    min-height: 7rem;
+}
+
+.header-logo{
+    /* Heading/24PX Bold */
+    color: #000;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 100% */
+    letter-spacing: 0.72px; 
+}
+.navbar-nav .nav-item .nav-link{
+    color: #000;
+    text-align: center;
+
+    /* Title/16PX Regular */
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+}
+
+
+#search{
+    background: #F5F5F5;
+}
+
+#search #search-input{
+    background: #F5F5F5;
+    border: none;
+}
+#search #search-input:focus{
+    box-shadow: none;
+}
+
+.icon{
+    font-size: 28px;
+    text-align: center;
+}
