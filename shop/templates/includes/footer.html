@@ -1,22 +1,28 @@
 {% load static %}
-<footer class="d-flex flex-column justify-content-center align-item-center mt-5 " >
-    <div class="my-5 footer-links-container mx-auto">
-        <div class="brand">
-            <div>
-                {% include "includes/brand.html" %}
+<footer>
+    <div class="footer-main">
+        <div class="footer-main__brand">
+            <div class="footer-main__brand__wrapper">
+                <h3 id="footer-logo">{{ brand_name }}</h3>
                 <h4 class="my-3">Subscribe</h4>
                 <p><span>Get 10% off your first order</span></p>
             </div>
-            <form  action="">
-                <div class="form-group">
-                    <input type="email" name="" id="email-input" placeholder="Enter Your Email" />
-                    <button type="submit">
+            <form class="footer-main__brand__email-form">
+                <div class="footer-main__brand__email-form__group">
+                    <input 
+                        class="footer-main__brand__email-form__input" 
+                        type="email" 
+                        name="" 
+                        id="email-input" 
+                        placeholder="Enter Your Email" 
+                    />
+                    <button class="footer-main__brand__email-form__button" type="submit">
                         <i class="fa-regular fa-paper-plane"></i>
                     </button>
                 </div>
             </form>
         </div>
-        <div>
+        <div class="footer-main__support">
             <h4>Support</h4>
             <address>
                 <p>111 Kanju, Swat, KP, Pakistan.</p>
@@ -24,7 +30,7 @@
                 <p><a href="tel:+92333456789101">+92-333-456789101</a></p>
             </address>
         </div>
-        <div>
+        <div class="footer-main_account">
             <h4>Account</h4>
             <ul>
                 <li><a href="#">My Account</a></li>
@@ -35,7 +41,7 @@
             </ul>
         </div>
         <div>
-            <h4>Quick Links</h4>
+            <h4 class="footer-main__quick-link">Quick Links</h4>
             <ul>
                 <li><a href="#">Privacy Policy</a></li>
                 <li><a href="#">Terms Of Use</a></li>
@@ -43,19 +49,19 @@
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>
-        <div>
+        <div class="footer-main__download-link">
             <h4>Download App</h4>
             <p> <span> Save $3 with the app (new users only)</span></p>
-            <div class="app-container">
-                <div>
+            <div class="footer-main__download-link__apps">
+                <div class="footer-main__download-link__apps--full-height">
                     <img src="{% static 'images/qr-code.png' %}" alt="Mobile App Barcode">
                 </div>
-                <div>
+                <div class="footer-main__download-link__apps--half-height">
                     <a href="#"><img src="{% static 'images/download-playstore.png' %}" alt="Download on Google Play"></a>
                     <a href="#"><img src="{% static 'images/download-appstore.png' %}" alt="Download on the App Store"></a>
                 </div>
             </div>
-            <ul class="social-links">
+            <ul class="footer-main__download-link__links">
                 <li><a href="#"> <i class="fa-brands fa-facebook-f"></i> </li>
                 <li><a href="#"> <i class="fa-brands fa-twitter"></i> </li>
                 <li><a href="#"> <i class="fa-brands fa-linkedin-in"></i> </li>
@@ -63,7 +69,7 @@
             </ul>
         </div>
     </div>
-    <div id="copyright" >
+    <div class="footer-copyright" >
         <p>&copy; Copyright Wajahat Ahmad Technologies 2023. All rights reserved</p>
     </div>
 </footer>

@@ -1,0 +1,6 @@
+@use '../abstracts' as abstract;
+
+body{
+    font-size: abstract.$fs-400;
+    font-family: abstract.$ff-body;
+}
