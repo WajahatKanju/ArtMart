@@ -1,11 +1,11 @@
-<article class="sale d-flex justify-content-center align-items-center ">
-  <div class="d-flex justify-content-center align-items-center position-relative w-75">
-    <p class="m-3 me-5">
+<header>
+  <div class="global-promo-wrapper">
+    <p class="global-promo-wrapper__promo">
       Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-      <a id="action" href="#">ShopNow</a>
+      <a class="global-promo-wrapper__promo--action" href="#">ShopNow</a>
     </p>
-    <form class="position-absolute end-0" action="">
-      <select name="" id="lang-select">
+    <form class="global-promo-wrapper__lang" action="">
+      <select name="" class="global-promo-wrapper__lang__select">
         <option value="">English</option>
         <option value="">Urdu</option>
         <option value="">Spanish</option>
@@ -13,44 +13,39 @@
       </select>
     </form>
   </div>
-  
-</article>
 
 
-<nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container">
-    {% include "includes/brand.html" %}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+  <nav>
+    <a  class="brand-logo" href="#">{{ brand_name }}</a>
+      <ul class="navigation-top">
+        <li class="navigation-top__nav-item">
+          <a class="navigation-top__nav-link">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Content</a>
+        <li class="navigation-top__nav-item">
+          <a class="navigation-top__nav-link" href="#">Content</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+        <li class="navigation-top__nav-item">
+            <a class="navigation-top__nav-link" href="#">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" >Sign Up</a>
+        <li class="navigation-top__nav-item">
+          <a class="navigation-top__nav-link" href="#" >Sign Up</a>
         </li>
       </ul>
-    </div>
-    <div class="header-right d-flex align-items-center">
+    <div class="actions-top">
       
-        <form id="search" class="d-flex">
-            <input id="search-input" class="form-control me-2" type="search" placeholder="What are you looking for?" aria-label="Search">
-            <button class="btn" type="submit">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 20L16.2223 16.2156M18.3158 11.1579C18.3158 13.0563 17.5617 14.8769 16.2193 16.2193C14.8769 17.5617 13.0563 18.3158 11.1579 18.3158C9.2595 18.3158 7.43886 17.5617 6.0965 16.2193C4.75413 14.8769 4 13.0563 4 11.1579C4 9.2595 4.75413 7.43886 6.0965 6.0965C7.43886 4.75413 9.2595 4 11.1579 4C13.0563 4 14.8769 4.75413 16.2193 6.0965C17.5617 7.43886 18.3158 9.2595 18.3158 11.1579V11.1579Z" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-                </svg> 
-            </button>
+        <form class="actions-top__search">
+            <div class="actions-top__search__group">
+              <input class="actions-top__search__input" type="search" placeholder="What are you looking for?" aria-label="Search">
+              <button class="actions-top__search__button" type="submit">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 20L16.2223 16.2156M18.3158 11.1579C18.3158 13.0563 17.5617 14.8769 16.2193 16.2193C14.8769 17.5617 13.0563 18.3158 11.1579 18.3158C9.2595 18.3158 7.43886 17.5617 6.0965 16.2193C4.75413 14.8769 4 13.0563 4 11.1579C4 9.2595 4.75413 7.43886 6.0965 6.0965C7.43886 4.75413 9.2595 4 11.1579 4C13.0563 4 14.8769 4.75413 16.2193 6.0965C17.5617 7.43886 18.3158 9.2595 18.3158 11.1579V11.1579Z" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg> 
+              </button>
+            </div>
+
         </form>
         <i class="icon fa-regular fa-heart ms-4"></i>
         <i class="icon fa-solid fa-cart-shopping ms-4"></i>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

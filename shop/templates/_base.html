@@ -8,11 +8,9 @@
     {% include 'includes/style.html'%}
 </head>
 <body>
-    <header>
-        {% block header %}
-            {% include 'includes/header.html'%}
-        {% endblock header %}
-    </header>
+    {% block header %}
+        {% include 'includes/header.html'%}
+    {% endblock header %}
     <main>
         {% block content %}
             <h1>Hello There</h1>

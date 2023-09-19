@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     "taggit",
     "orders",
     "shop",
-    "compressor",
     "smart_selects",
     "debug_toolbar",
     "jazzmin",

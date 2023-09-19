@@ -1,8 +1,6 @@
-{% load static compress %}
+{% load static  %}
 
-{% compress css %}
-    <link type="text/x-scss" href="{% static 'vendor/bootstrap/bootstrap.scss' %}" rel="stylesheet" media="screen">
-{% endcompress %}
 <link rel="stylesheet" href="{% static 'vendor/fontawesome-free-6.4.2/css/all.min.css' %}">
-<link rel="stylesheet" href="{% static 'fonts.css' %}">
-<link rel="stylesheet" href="{% static 'style.css' %}">
+{% comment %} <link rel="stylesheet" href="{% static 'fonts.css' %}"> {% endcomment %}
+{% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
+<link type="text/css" href="{% static 'scss/build/styles.css' %}" rel="stylesheet">

@@ -1,0 +1,70 @@
+@use '../abstracts' as abstract;
+
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    margin-inline: 5.5rem;
+}
+
+nav {
+    color: abstract.$text-dark;
+
+    a {
+        color: abstract.$text-dark;
+    }
+
+    li{
+        list-style-type: none;
+    }
+
+    .brand-logo{
+        font-family: abstract.$ff-heading;
+        font-size: abstract.$fs-500;
+        font-weight: 700;
+        line-height: 24px; 
+        letter-spacing: 0.72px; 
+        text-decoration: none;
+    }
+
+    .navigation-top{
+        display: flex;
+        gap: 3rem;
+        
+        a{
+            text-decoration: none;
+        }
+    }
+
+    .actions-top{
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        i{
+            cursor: pointer;
+            font-size: abstract.$fs-500;
+        }
+
+        &__search{
+            &__group {
+                display: flex;
+                padding: 0.43rem  1.25rem 0.43rem  0.75rem;
+                background-color: abstract.$secondary-1;
+
+            }
+
+            &__button{
+                cursor: pointer;
+            }
+            
+            &__input, &__button{
+                background-color: abstract.$secondary-1;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}
