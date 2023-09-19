@@ -1,0 +1,15 @@
+@use '../abstracts' as abstract;
+
+input{
+    outline: none;
+    border:  none;
+    padding-bottom: 0.5rem;
+
+    display: block;
+    position: relative;
+
+    width: 100%;
+    color: transparentize(abstract.$text-dark, 0.3) ;
+
+    border-bottom: 1px solid transparentize(abstract.$text-dark, 0.5);
+}

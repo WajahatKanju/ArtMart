@@ -1,3 +1,9 @@
+@use '../abstracts' as abstract;
+
 main {
     min-height: 80vh;
+}
+
+section{
+    margin-block: abstract.$fs-lg;
 }

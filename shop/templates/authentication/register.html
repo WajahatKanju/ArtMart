@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+  <section class="authentication-container">
+    <div class="authentication-container__side-image-wrapper">
+      <img src="{% static  'images/side-img.png' %}" alt="side image">
+    </div>
+    <div class="authentication-container__form-wrapper">
+      <div class="authentication-container__form-wrapper__register__card">
+        <h2>Create an Account</h2>
+        <p>Enter your details below</p>
+        <form action="">
+          <input placeholder="Name" type="text">
+          <input placeholder="Email" type="email">
+          <input placeholder="Password" type="password" name="" id="">
+          <input class="btn btn-block btn-secondary " type="submit" value="Register">
+        </form>
+      </div>
+        <p> <span>Already have account? </span><a href="#">Login</a></p>
+    </div>
+  </section>
+{% endblock %}
