@@ -34,6 +34,8 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+handler404 = "shop.views.handler_404"
+
 
 admin.site.site_title = _("Artmart Admin")  # Change this to your desired admin title.
 admin.site.site_header = _("Artmart")  # Change this to your desired admin header.

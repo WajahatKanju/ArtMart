@@ -13,6 +13,7 @@
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
+    text-decoration: none;
 }
 
 .btn-block{
@@ -28,4 +29,11 @@
 .btn-secondary{
     background: abstract.$button-secondary;
     color: abstract.$text-white;
+}
+
+.btn-lg{
+    padding: abstract.$fs-300 abstract.$fs-400;
+    font-size: abstract.$fs-500;
+    line-height: 1.5;
+    border-radius: .3rem;
 }

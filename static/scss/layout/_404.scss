@@ -1,0 +1,25 @@
+@use '../abstracts' as abstract;
+
+.e-404{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 50vh;
+
+
+    &__wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: abstract.$fs-700;
+    }
+    h2{
+        font-family: abstract.$ff-heading;
+        font-size:  abstract.$fs-xl;
+        font-weight: abstract.$fw-bold;
+        margin-bottom: abstract.$fs-500;
+    }
+
+}

@@ -33,3 +33,7 @@ def user_login(request):
     else:
         form = AuthenticationForm()
     return render(request, "authentication/login.html", {"form": form})
+
+
+def handler_404(request, *args, **kwargs):
+    return render(request, "shop/404.html", status=404)
