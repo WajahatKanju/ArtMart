@@ -8,6 +8,19 @@ nav{
     padding: 1rem 3rem;
     margin-inline: 5.5rem;
     flex-wrap: wrap;
+    position: relative;
+
+    &::after{
+        content: '';
+        display: block;
+        background-color: abstract.$text-light-grey;
+        position: absolute;
+        bottom: 0;
+        left:  50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 1px;
+    }
 
 }
 

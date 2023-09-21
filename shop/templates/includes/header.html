@@ -1,51 +1,15 @@
-<header>
-  <div class="global-promo-wrapper">
-    <p class="global-promo-wrapper__promo">
-      Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-      <a class="global-promo-wrapper__promo--action" href="#">ShopNow</a>
-    </p>
-    <form class="global-promo-wrapper__lang" action="">
-      <select name="" class="global-promo-wrapper__lang__select">
-        <option value="">English</option>
-        <option value="">Urdu</option>
-        <option value="">Spanish</option>
-        <option value="">Chineese</option>
-      </select>
-    </form>
+{% load static %}
+<header class="header">
+  <ul class="header__categories">
+    <li><a href="">Lorem, ipsum.</a></li>
+    <li><a href="">Atque, similique?</a></li>
+    <li><a href="">Similique, et.</a></li>
+    <li><a href="">Aliquid, dolorum!</a></li>
+    <li><a href="">Consequatur, accusamus?</a></li>
+    <li><a href="">Consequatur, accusamus?</a></li>
+    <li><a href="">Consequatur, accusamus?</a></li>
+  </ul>
+  <div class="header__caurosel">
+    <img  class="header__caurosel__placeholder" src="{% static 'images/image-caursel-placeholder.png' %}" alt="">
   </div>
-
-
-  <nav>
-    <a  class="brand-logo" href="#">Artmart</a>
-      <ul class="navigation-top">
-        <li class="navigation-top__nav-item">
-          <a class="navigation-top__nav-link">Home</a>
-        </li>
-        <li class="navigation-top__nav-item">
-          <a class="navigation-top__nav-link" href="#">Content</a>
-        </li>
-        <li class="navigation-top__nav-item">
-            <a class="navigation-top__nav-link" href="#">About</a>
-        </li>
-        <li class="navigation-top__nav-item">
-          <a class="navigation-top__nav-link" href="#" >Sign Up</a>
-        </li>
-      </ul>
-    <div class="actions-top">
-      
-        <form class="actions-top__search">
-            <div class="actions-top__search__group">
-              <input class="actions-top__search__input" type="search" placeholder="What are you looking for?" aria-label="Search">
-              <button class="actions-top__search__button" type="submit">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 20L16.2223 16.2156M18.3158 11.1579C18.3158 13.0563 17.5617 14.8769 16.2193 16.2193C14.8769 17.5617 13.0563 18.3158 11.1579 18.3158C9.2595 18.3158 7.43886 17.5617 6.0965 16.2193C4.75413 14.8769 4 13.0563 4 11.1579C4 9.2595 4.75413 7.43886 6.0965 6.0965C7.43886 4.75413 9.2595 4 11.1579 4C13.0563 4 14.8769 4.75413 16.2193 6.0965C17.5617 7.43886 18.3158 9.2595 18.3158 11.1579V11.1579Z" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-                  </svg> 
-              </button>
-            </div>
-
-        </form>
-        <i class="icon fa-regular fa-heart ms-4"></i>
-        <i class="icon fa-solid fa-cart-shopping ms-4"></i>
-    </div>
-  </nav>
 </header>

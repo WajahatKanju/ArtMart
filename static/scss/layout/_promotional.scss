@@ -1,0 +1,44 @@
+@use '../abstracts' as abstract;
+
+
+    
+.global-promo-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: abstract.$primary-dark;
+    color: abstract.$text-white;
+    font-family: abstract.$ff-body;
+    font-weight: 400;
+    
+    position: relative;
+
+    &__promo{
+        margin: 12px;
+
+        &--action{
+            font-weight: 700;
+            color: inherit;
+            font-style: normal; 
+        }
+    }
+    
+    &__lang{
+        margin-left: 8rem;
+        background-color: #000;
+
+        &__select {
+            font-weight: 700;
+            width: 6rem;
+            appearance: none;
+            border: none;
+            background-color: #000;
+            color: var(--Text);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.364 12.95L17.314 8L18.728 9.414L12.364 15.778L6.00003 9.414L7.41403 8L12.364 12.95Z' fill='white'/%3e%3c/svg%3e ");
+            background-repeat: no-repeat;
+            background-position: right center;
+        }
+    
+    }
+}

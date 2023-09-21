@@ -1,9 +1,13 @@
 @use '../abstracts' as abstract;
 
+body{
+    overflow-x: hidden;
+}
 main {
     min-height: 80vh;
 }
 
-section{
-    margin-block: abstract.$fs-lg;
+section, header{
+    margin-block: abstract.$fs-xxl;
+    margin-inline: abstract.$fs-xxl;
 }

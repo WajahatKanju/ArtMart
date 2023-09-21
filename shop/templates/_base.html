@@ -8,8 +8,13 @@
     {% include 'includes/style.html'%}
 </head>
 <body>
+    {% block promotioanl %}
+        {% include 'includes/promotional.html'%}
+    {% endblock promotioanl %}
+    {% block nav %}
+    {% endblock nav%}
     {% block header %}
-        {% include 'includes/header.html'%}
+        
     {% endblock header %}
     <main>
         {% block content %}

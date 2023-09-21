@@ -1,47 +1,45 @@
 @use '../abstracts' as abstract;
 
-header{
-
-    border-bottom:  1px solid abstract.$text-light-grey;
-    
-    .global-promo-wrapper{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        background: abstract.$primary-dark;
-        color: abstract.$text-white;
-        font-family: abstract.$ff-body;
-        font-weight: 400;
-        
+.header {
+    margin-block: abstract.$fs-400;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    justify-content: space-around;
+    ul{
+        padding-inline: 2rem;
         position: relative;
-    
-        &__promo{
-            margin: 12px;
 
-            &--action{
-                font-weight: 700;
-                color: inherit;
-                font-style: normal; 
-            }
+        &::after{
+            content: '';
+            
+            background-color: abstract.$text-light-grey;
+            
+            transform: translateY(-(abstract.$fs-400 * 2));
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            width: 1px;
+            height: 120%;
         }
-        
-        &__lang{
-            margin-left: 8rem;
-            background-color: #000;
 
-            &__select {
-                font-weight: 700;
-                width: 6rem;
-                appearance: none;
-                border: none;
-                background-color: #000;
-                color: var(--Text);
-                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.364 12.95L17.314 8L18.728 9.414L12.364 15.778L6.00003 9.414L7.41403 8L12.364 12.95Z' fill='white'/%3e%3c/svg%3e ");
-                background-repeat: no-repeat;
-                background-position: right center;
-            }
-        
+    }
+    li{
+        list-style-type: none;
+        margin-bottom: abstract.$fs-400;
+    }
+    a{
+        text-decoration: none;
+    }
+
+    &__caurosel{
+        display: flex;
+        justify-content: space-around;
+        padding: abstract.$fs-300 abstract.$fs-xl;
+        &__placeholder{
+            object-fit: fill;
+            width: 80%;
         }
     }
 }
