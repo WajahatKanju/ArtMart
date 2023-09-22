@@ -1,0 +1,40 @@
+{% load static %}
+<div class="card center-absolute">
+    <div class="card__image">
+        <img src="{% static 'images/card-placeholder.png' %}" alt="">
+    </div>
+    <div class="card__action">
+        <a  class="card__action--like" href="">
+            <i class="fa-regular fa-heart"></i>
+        </a>
+        <a  class="card__action--see" href="">
+            <i class="fa-regular fa-eye"></i>
+        </a>
+    </div>
+    <div class="card__discount">
+        <span class="card__dicount__ratio">
+            -40%
+        </span>
+    </div>
+    <div class="card__content">
+        <div class="card__content__item-name">
+            HAVIT HV-G92 Gamepad
+        </div>
+        <div class="card__content__item-price">
+            <div class="card__content__item-price--new">$120</div>
+            <div class="card__content__item-price--old">$160</div>
+        </div>
+        <div class="card__content__rating">
+            <div class="card__content__rating__stars">
+                {% include 'svgs/star.html' %}
+                {% include 'svgs/star.html' %}
+                {% include 'svgs/star.html' %}
+                {% include 'svgs/star.html' %}
+                {% include 'svgs/star.html' %}
+            </div>
+            <div class="card__content__rating__rated">
+                (80)
+            </div>
+        </div>
+    </div>
+</div>

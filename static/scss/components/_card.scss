@@ -1,0 +1,77 @@
+@use '../abstracts' as abstract;
+
+.card{
+    min-width: abstract.$card-width-medium;
+    min-height: abstract.$card-height-medium;
+
+    border-radius: abstract.$size-small;
+    
+
+    &__image{
+        min-width: 100%;
+        min-height: 70%;
+        background-color: abstract.$secondary-1;
+        padding: abstract.$padding-centerd;
+    }
+
+    &__action{
+        position: absolute;
+        right: 0;
+        top: 0;
+        gap: abstract.$size-large;
+        display: flex;
+        flex-direction: column;
+        padding: abstract.$fs-350;
+
+        a{
+            text-decoration: none;
+            color: abstract.$primary-dark-grey;
+            font-size: abstract.$fs-500;
+            background-color: abstract.$primary-white;
+            padding: abstract.$size-small;
+            border-radius: 100%;
+            width: abstract.$fs-600;
+            height: abstract.$fs-600; 
+            i {
+                transform: scale(0.8);
+            }
+        }
+    }
+
+    &__discount{
+        border-radius: abstract.$size-small;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background: abstract.$accent;
+        padding: 0 abstract.$fs-350;
+        color: abstract.$text-white;
+        margin: abstract.$fs-350;
+    }
+
+    &__content{
+        margin-top: abstract.$fs-400;
+        font-weight: abstract.$fw-bold;
+
+        &__item-price{
+            margin-block: abstract.$fs-300;
+            display: flex;
+            gap: abstract.$size-large;
+
+            &--new{
+                color: abstract.$accent;
+            }
+        }
+
+        &__rating{
+            display: flex;
+            gap: abstract.$size-large;
+            
+            &__rated{
+                opacity: 0.8;
+            }
+        }
+    }
+}
