@@ -1,0 +1,58 @@
+<section class="container">
+    <div class="container__header">
+        <div class="container__header__title"> 
+            <h3 class="container__header__title--container">Title</h3>
+            <div class="container__header__title--heading">Heading</div>
+        </div>
+        <div class="container__header__sale-time">
+                <div class="container__header__sale-time--days">
+                    <span class="container__header__sale-time--title">Days</span>
+                    <span class="container__header__sale-time--content" >30</span>
+                </div>
+                <div class="red-dots">
+                    {% include "svgs/red-dot.html" %}
+                    {% include "svgs/red-dot.html" %}
+                </div>
+                <div class="container__header__sale-time--hours">
+                    <span class="container__header__sale-time--title">Hours</span>
+                    <span class="container__header__sale-time--content" >14</span>
+                </div>
+                <div class="red-dots">
+                    {% include "svgs/red-dot.html" %}
+                    {% include "svgs/red-dot.html" %}
+                </div>
+                <div class="container__header__sale-time--minutes">
+                    <span class="container__header__sale-time--title">Minutes</span>
+                    <span class="container__header__sale-time--content" >58</span>
+                </div>
+                <div class="red-dots">
+                    {% include "svgs/red-dot.html" %}
+                    {% include "svgs/red-dot.html" %}
+                </div>
+                <div class="container__header__sale-time--seconds">
+                    <span class="container__header__sale-time--title">Seconds</span>
+                    <span class="container__header__sale-time--content" >02</span>
+                </div>
+        </div>
+        <div class="container__carousel-controls">
+            <div class="container__carousel-controls__control container__carousel-controls__control--previous">
+                <a  class="carousel-button" id="carousel-button-previous"><i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+            <div class="container__carousel-controls__control container__carousel-controls__control--next">
+                <a  class="carousel-button" id="carousel-button-next" ><i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+    </div>
+    </div>
+    <div class="container__body">
+        <!-- Here You Can Add The The Cards  -->
+        {% include "includes/card.html" %}
+        {% include "includes/card.html" %}
+        {% include "includes/card.html" %}
+        {% include "includes/card.html" %}
+        {% include "includes/card.html" %}
+        {% include "includes/card.html" %}
+    </div>
+    <div class="container__footer">
+        <a href="" class="container__footer__button btn btn-secondary btn-md--wide">View All Products</a>
+    </div>
+</section>

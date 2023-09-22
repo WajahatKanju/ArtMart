@@ -5,7 +5,8 @@
     min-height: abstract.$card-height-medium;
 
     border-radius: abstract.$size-small;
-    
+    position: relative;
+    display: inline-block;
 
     &__image{
         min-width: 100%;

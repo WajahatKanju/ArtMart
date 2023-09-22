@@ -1,0 +1,133 @@
+@use '../abstracts' as abstract;
+
+.container{
+    display: flex;
+    flex-direction: column;
+
+    &__header{
+        display: flex;
+
+        justify-content: flex-start;
+        gap: abstract.$fs-xxl;
+        
+        // background-color: red;
+        
+        position: relative;
+
+        &__sale-time{
+            display: flex;
+            align-self: flex-end;
+            gap: abstract.$fs-500;
+
+            .red-dots{
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                flex-direction: column;
+            }
+
+            &--title{
+                font-family: abstract.$ff-body;
+                font-size: abstract.$fs-350;
+                font-weight: abstract.$fw-bold;
+                line-height: abstract.$fs-400; 
+            }
+
+            &--content{
+                font-family: abstract.$ff-heading;
+                font-size: abstract.$fs-600;
+                font-weight: abstract.$fw-bolder;
+                line-height: abstract.$fs-600;
+                letter-spacing: abstract.$size-small; 
+            }
+
+            &--days, &--hours, &--minutes, &--seconds{
+                display: flex;
+                flex-direction: column;
+                &:not(:last-child)::after {
+                    content: '';
+                }
+            }
+        }
+
+        &__title{
+            display: flex;
+            flex-direction: column;
+            gap: abstract.$fs-500;
+            position: relative;
+            
+            &--container{
+                margin-bottom: abstract.$fs-500;
+                margin-left: abstract.$fs-500;
+                color: abstract.$accent;
+
+                &::before{
+                    content: '';
+                    position: absolute;
+                    bottom: -(abstract.$fs-450)/2;
+                    left: -(abstract.$fs-600);
+                    width: abstract.$fs-450;
+                    height: abstract.$fs-450 * 2;
+                    background: abstract.$accent;
+                    display: inline-block;
+                    margin-right: abstract.$fs-400;
+                }
+
+                transform: translateY(abstract.$fs-450);
+            }
+
+            &--heading{
+                font-family: abstract.$ff-heading;
+                font-size: abstract.$fs-650;
+                font-weight: abstract.$fw-bolder;
+                line-height: abstract.$fs-700;
+                letter-spacing: 1.44px; 
+            }
+        }
+    }
+
+    
+    &__carousel-controls{
+        position: absolute;
+
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+        gap: abstract.$size-large;
+
+        &__control{
+            background: abstract.$secondary-1;
+            padding: abstract.$fs-400;
+            border-radius: 50%;
+            width: abstract.$fs-700;
+            height: abstract.$fs-700;
+            cursor: pointer;
+            position: relative;
+
+            .carousel-button{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+        }
+    }
+
+    &__body{
+        display: flex;
+        gap: abstract.$fs-500;
+        margin-block: abstract.$fs-650;
+    }
+
+    &__footer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &__button{
+            font-size: abstract.$fs-400;
+        }
+    }
+}
