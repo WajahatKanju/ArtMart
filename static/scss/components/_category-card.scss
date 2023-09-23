@@ -1,0 +1,36 @@
+@use '../abstracts' as abstract;
+
+.category-card{
+    border: 1px solid rgba(0, 0, 0, 0.30); 
+    min-width: abstract.$card-width-small;
+    min-height: abstract.$card-height-small;
+    border-radius: abstract.$size-small; 
+    background: abstract.$text-white;
+
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    a{
+        color: abstract.$primary-dark-grey;
+        text-decoration: none;
+
+    }
+
+    &__content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: abstract.$fs-400;
+
+        font-size: abstract.$fs-lg;
+        padding: abstract.$fs-500;
+
+        &__name{
+            font-size: abstract.$fs-500;
+        }
+    }
+}
