@@ -1,7 +1,12 @@
 {% load static %}
 <div class="card">
-    <div class="card__image">
-        <img src="{% static 'images/card-placeholder.png' %}" alt="">
+    <div class="card__header">
+        <div class="card__header__image">
+            <img src="{% static 'images/card-placeholder.png' %}" alt="">
+        </div>
+            <a class="card__header__add-to-cart" href="#">
+                Add to Cart
+            </a>
     </div>
     <div class="card__action">
         <a  class="card__action--like" href="">
