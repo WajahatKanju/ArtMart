@@ -1,0 +1,8 @@
+@mixin scale($scale-amount: 1.1){
+    transform: scale($scale-amount);
+}
+
+
+@mixin appear3D() {
+    transform: rotateX(0deg) translateY(0);
+}
