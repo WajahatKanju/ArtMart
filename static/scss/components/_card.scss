@@ -1,6 +1,6 @@
-@use '../abstracts' as abstract;
+@use "../abstracts" as abstract;
 
-.card{
+.card {
     min-width: abstract.$card-width-medium;
     min-height: abstract.$card-height-medium;
 
@@ -9,39 +9,36 @@
     display: inline-block;
     overflow: hidden;
 
-
-    &:hover &__header__image{
+    &:hover &__header__image {
         @include abstract.scale;
     }
-    
-    &:hover &__header__add-to-cart{
+
+    &:hover &__header__add-to-cart {
         @include abstract.appear3D;
     }
 
-    &:hover &__action{
+    &:hover &__action {
         transform: translateX(0);
     }
 
-    &__header{
-
+    &__header {
         overflow: hidden;
         position: relative;
 
-        &__image{
+        &__image {
             transition: all 0.5s;
 
             padding: abstract.$padding-centerd;
-
         }
         min-width: 100%;
         min-height: 70%;
         background-color: abstract.$secondary-1;
 
-        &__add-to-cart{
+        &__add-to-cart {
             width: 100%;
             text-align: center;
             font-weight: abstract.$fw-bold;
-            padding: abstract.$fs-350 ;
+            padding: abstract.$fs-350;
             background: abstract.$primary-dark;
             color: abstract.$text-white;
             text-decoration: none;
@@ -54,11 +51,35 @@
             bottom: 0;
             left: 0;
 
-            
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover &--text {
+                transform: translateX(-15rem);
+            }
+
+            &:hover &--icon {
+                transform: translateX(0);
+            }
+
+            &--text,
+            &--icon {
+                transition: 0.8s;
+            }
+
+            &--icon {
+                position: absolute;
+
+                transform: translateX(10rem);
+                font-size: abstract.$fs-500;
+            }
         }
     }
 
-    &__action{
+    &__action {
         position: absolute;
         right: 0;
         top: 0;
@@ -69,7 +90,7 @@
         transition: 0.8s;
         transform: translateX(100%);
 
-        a{
+        a {
             text-decoration: none;
             color: abstract.$primary-dark-grey;
             font-size: abstract.$fs-500;
@@ -77,10 +98,13 @@
             padding: abstract.$size-small;
             border-radius: 100%;
             width: abstract.$fs-600;
-            height: abstract.$fs-600; 
+            height: abstract.$fs-600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            &:hover{
-                background-color: abstract.$accent;
+            &:hover {
+                background-color: abstract.$primary-color;
                 color: abstract.$text-white;
             }
             i {
@@ -89,38 +113,42 @@
         }
     }
 
-    &__discount{
+    &__discount {
         border-radius: abstract.$size-small;
 
         position: absolute;
         top: 0;
         left: 0;
 
-        background: abstract.$accent;
+        background: abstract.$primary-color;
         padding: 0 abstract.$fs-350;
         color: abstract.$text-white;
         margin: abstract.$fs-350;
     }
 
-    &__content{
+    &__content {
         margin-top: abstract.$fs-400;
         font-weight: abstract.$fw-bold;
 
-        &__item-price{
+        &__item-price {
             margin-block: abstract.$fs-300;
             display: flex;
             gap: abstract.$size-large;
 
-            &--new{
-                color: abstract.$accent;
+            &--new {
+                color: abstract.$primary-color;
+            }
+            &--old {
+                text-decoration: line-through;
+                opacity: 0.5;
             }
         }
 
-        &__rating{
+        &__rating {
             display: flex;
             gap: abstract.$size-large;
-            
-            &__rated{
+
+            &__rated {
                 opacity: 0.8;
             }
         }

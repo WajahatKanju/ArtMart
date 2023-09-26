@@ -1,4 +1,4 @@
-@use '../abstracts' as abstract;
+@use "../abstracts" as abstract;
 
 .btn {
     display: inline-block;
@@ -16,38 +16,46 @@
     text-decoration: none;
 }
 
-.btn-block{
+.btn-block {
     display: block;
     width: 100%;
 }
 
-.btn-primrary{
+.btn-primary {
     background: abstract.$button-primary;
-    color: abstract.$text-dark;
+    color: abstract.$text-white;
+
+    &:hover {
+        background-color: color-mix(in oklab, abstract.$button-primary, abstract.$text-dark 5%);
+    }
 }
 
-.btn-secondary{
+.btn-secondary {
     background: abstract.$button-secondary;
     color: abstract.$text-white;
+
+    &:hover {
+        background-color: color-mix(in oklab, abstract.$button-secondary, abstract.$text-dark 5%);
+    }
 }
 
-.btn-lg{
+.btn-lg {
     padding: abstract.$fs-300 abstract.$fs-400;
     font-size: abstract.$fs-500;
     line-height: 1.5;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
 }
 
-.btn-md{
+.btn-md {
     padding: abstract.$fs-200 abstract.$fs-300;
     font-size: abstract.$fs-500;
     line-height: 1.5;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
 }
 
-.btn-md--wide{
+.btn-md--wide {
     padding: abstract.$fs-400 abstract.$fs-700;
     font-size: abstract.$fs-500;
     line-height: 1.5;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
 }

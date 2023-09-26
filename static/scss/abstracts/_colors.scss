@@ -1,22 +1,21 @@
-$primary-white: #FFF;
+$primary-white: #fff;
 $primary-dark-grey: #363738;
 $primary-dark: #000;
 
+$secondary-1: #f5f5f5;
+$secondary-2: #fefaf1;
+$secondary-3: #d5d5d5;
 
-$secondary-1: #F5F5F5;
-$secondary-2: #FEFAF1;
-$secondary-3: #D5D5D5;
-
-$text-white: #FAFAFA;
+$text-white: #fafafa;
 $text-light-grey: #b3b3b3;
-$text-dark-grey: #7D8184;
+$text-dark-grey: #7d8184;
 $text-dark: #000;
 
 $button-dark: #000;
 
+$primary-color: #d84444;
+$accent: #4c2b36;
 
-$accent: #D84444;
-
-$button-primary: #00FF66;
+$button-primary: $primary-color;
 $button-secondary: $accent;
-$button-secondary-hover: #E07575;
+$button-secondary-hover: #e07575;

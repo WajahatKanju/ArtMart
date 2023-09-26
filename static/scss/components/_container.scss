@@ -1,74 +1,77 @@
-@use '../abstracts' as abstract;
+@use "../abstracts" as abstract;
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
 
-    &__header{
+    &__header {
         display: flex;
 
         justify-content: flex-start;
         gap: abstract.$fs-xxl;
-        
+
         // background-color: red;
-        
+
         position: relative;
 
-        &__sale-time{
+        &__sale-time {
             display: flex;
             align-self: flex-end;
             gap: abstract.$fs-500;
 
-            .red-dots{
+            .red-dots {
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
                 flex-direction: column;
             }
 
-            &--title{
+            &--title {
                 font-family: abstract.$ff-body;
                 font-size: abstract.$fs-350;
                 font-weight: abstract.$fw-bold;
-                line-height: abstract.$fs-400; 
+                line-height: abstract.$fs-400;
             }
 
-            &--content{
+            &--content {
                 font-family: abstract.$ff-heading;
                 font-size: abstract.$fs-600;
                 font-weight: abstract.$fw-bolder;
                 line-height: abstract.$fs-600;
-                letter-spacing: abstract.$size-small; 
+                letter-spacing: abstract.$size-small;
             }
 
-            &--days, &--hours, &--minutes, &--seconds{
+            &--days,
+            &--hours,
+            &--minutes,
+            &--seconds {
                 display: flex;
                 flex-direction: column;
                 &:not(:last-child)::after {
-                    content: '';
+                    content: "";
                 }
             }
         }
 
-        &__title{
+        &__title {
             display: flex;
             flex-direction: column;
             gap: abstract.$fs-500;
             position: relative;
-            
-            &--container{
+
+            &--container {
                 margin-bottom: abstract.$fs-500;
                 margin-left: abstract.$fs-500;
-                color: abstract.$accent;
+                color: abstract.$primary-color;
 
-                &::before{
-                    content: '';
+                &::before {
+                    content: "";
                     position: absolute;
                     bottom: -(abstract.$fs-450)/2;
                     left: -(abstract.$fs-600);
                     width: abstract.$fs-450;
                     height: abstract.$fs-450 * 2;
-                    background: abstract.$accent;
+                    background: abstract.$primary-color;
                     display: inline-block;
                     margin-right: abstract.$fs-400;
                 }
@@ -76,18 +79,17 @@
                 transform: translateY(abstract.$fs-450);
             }
 
-            &--heading{
+            &--heading {
                 font-family: abstract.$ff-heading;
                 font-size: abstract.$fs-650;
                 font-weight: abstract.$fw-bolder;
                 line-height: abstract.$fs-700;
-                letter-spacing: 1.44px; 
+                letter-spacing: 1.44px;
             }
         }
     }
 
-    
-    &__carousel-controls{
+    &__carousel-controls {
         position: absolute;
 
         right: 0;
@@ -96,7 +98,7 @@
         display: flex;
         gap: abstract.$size-large;
 
-        &__control{
+        &__control {
             background: abstract.$secondary-1;
             padding: abstract.$fs-400;
             border-radius: 50%;
@@ -105,28 +107,37 @@
             cursor: pointer;
             position: relative;
 
-            .carousel-button{
+            transition: 0.2s;
+
+            &:hover {
+                background: abstract.$primary-dark-grey;
+                color: abstract.$text-white;
+                i {
+                    transform: scale(1.05);
+                }
+            }
+
+            .carousel-button {
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
-
         }
     }
 
-    &__body{
+    &__body {
         display: flex;
         gap: abstract.$fs-500;
         margin-block: abstract.$fs-650;
     }
 
-    &__footer{
+    &__footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        
-        &__button{
+
+        &__button {
             font-size: abstract.$fs-400;
         }
     }

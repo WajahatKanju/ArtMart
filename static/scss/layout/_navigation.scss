@@ -1,7 +1,6 @@
-@use '../abstracts' as abstract;
+@use "../abstracts" as abstract;
 
-
-nav{
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,18 +9,17 @@ nav{
     flex-wrap: wrap;
     position: relative;
 
-    &::after{
-        content: '';
+    &::after {
+        content: "";
         display: block;
         background-color: abstract.$text-light-grey;
         position: absolute;
         bottom: 0;
-        left:  50%;
+        left: 50%;
         transform: translateX(-50%);
         width: 100vw;
         height: 1px;
     }
-
 }
 
 nav {
@@ -29,53 +27,57 @@ nav {
 
     a {
         color: abstract.$text-dark;
+        position: relative;
     }
 
-    li{
+    li {
         list-style-type: none;
+        a {
+            @include abstract.link-hover-effect-1;
+        }
     }
 
-    .brand-logo{
+    .brand-logo {
         font-family: abstract.$ff-heading;
         font-size: abstract.$fs-500;
         font-weight: 700;
-        line-height: 24px; 
-        letter-spacing: 0.72px; 
+        line-height: 24px;
+        letter-spacing: 0.72px;
         text-decoration: none;
     }
 
-    .navigation-top{
+    .navigation-top {
         display: flex;
         gap: 3rem;
-        
-        a{
+
+        a {
             text-decoration: none;
         }
     }
 
-    .actions-top{
+    .actions-top {
         display: flex;
         align-items: center;
         gap: 1.5rem;
 
-        i{
+        i {
             cursor: pointer;
             font-size: abstract.$fs-500;
         }
 
-        &__search{
+        &__search {
             &__group {
                 display: flex;
                 padding: 0.5rem;
                 background-color: abstract.$secondary-1;
-
             }
 
-            &__button{
+            &__button {
                 cursor: pointer;
             }
-            
-            &__input, &__button{
+
+            &__input,
+            &__button {
                 background-color: abstract.$secondary-1;
                 border: none;
                 outline: none;

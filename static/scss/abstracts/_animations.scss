@@ -1,8 +1,67 @@
-@mixin scale($scale-amount: 1.1){
+@use "./colors" as colors;
+
+@mixin scale($scale-amount: 1.1) {
     transform: scale($scale-amount);
 }
 
-
 @mixin appear3D() {
     transform: rotateX(0deg) translateY(0);
+}
+
+@mixin link-hover-effect-1($thickness: 0.1em, $color: colors.$primary-color) {
+    color: #0000;
+    padding-block: $thickness;
+    background:
+        linear-gradient($color 50%, #000 0) 0% calc(100% - var(--position, 0%)) / 100% 200%,
+        linear-gradient($color 0 0) 0% var(--position, 0%) / var(--position, 0%) $thickness no-repeat;
+    -webkit-background-clip: text, padding-box;
+    background-clip: text, padding-box;
+    transition:
+        0.3s var(--timeing, 0s) linear,
+        background-size 0.3s calc(0.3s - var(--timeing, 0s));
+
+    &:hover {
+        --position: 100%;
+        --timeing: 0.3s;
+    }
+}
+
+@mixin link-hover-effect-2($color: colors.$primary-color) {
+    $thickness: 0.15em;
+    --s: 0.15em;
+
+    line-height: 1.1em;
+    padding-bottom: 2.1 * $thickness;
+    background:
+        conic-gradient(from 135deg at top, $color 90deg, #0000 0) left 0 bottom $thickness / calc(2 * var(--s))
+            $thickness repeat-x,
+        conic-gradient(from -45deg at bottom, $color 90deg, #0000 0) left $thickness bottom 0 / calc(2 * var(--s))
+            $thickness repeat-x;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) 0 / var(--position, 0%) padding-box no-repeat;
+    transition: 0.5s;
+
+    &:hover {
+        --position: 100%;
+        --timeing: 0.3s;
+        color: $color;
+    }
+}
+
+@mixin link-hover-effect-3($color: colors.$text-white) {
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        display: block;
+        background-color: $color;
+        transition: 0.8s;
+        bottom: 0;
+    }
+    &:hover::before {
+        width: 100%;
+    }
 }

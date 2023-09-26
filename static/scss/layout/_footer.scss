@@ -1,28 +1,28 @@
-@use '../abstracts' as abstract;
+@use "../abstracts" as abstract;
 
 footer {
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 
     background: abstract.$primary-dark;
     color: abstract.$text-white;
 
     padding-top: 5rem;
 
-    ul{
+    ul {
         list-style-type: none;
         padding: 0;
     }
 
-    li{
+    li {
         margin-bottom: abstract.$fs-400;
+        width: fit-content;
+        @include abstract.link-hover-effect-3;
     }
 
-    a{
+    a {
         text-decoration: none;
     }
 
@@ -30,30 +30,29 @@ footer {
         opacity: 0.7;
     }
 
-    .footer{
-        &-main{
-
+    .footer {
+        &-main {
             display: grid;
             grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
             gap: abstract.$fs-500;
 
             margin: 0 abstract.$fs-xl;
-            
-            h3, h4 {
+
+            h3,
+            h4 {
                 font-size: abstract.$fs-450;
                 font-weight: 500;
                 margin-bottom: abstract.$fs-500;
             }
 
-            &__brand{
+            &__brand {
                 padding-inline: 2rem;
-                &__wrapper{
+                &__wrapper {
                     display: flex;
                     flex-direction: column;
                     margin-bottom: abstract.$fs-400;
                 }
-                &__email-form{
-
+                &__email-form {
                     &__group {
                         display: flex;
                         padding: 0.5rem 0.5rem;
@@ -68,13 +67,14 @@ footer {
                         width: 10%;
                         margin-left: 0.5rem;
                     }
-                    
-                    &__input{
+
+                    &__input {
                         width: 90%;
                         padding: 0 0.25rem;
                         font-size: abstract.$fs-400;
                     }
-                    &__input, &__button {
+                    &__input,
+                    &__button {
                         background-color: abstract.$primary-dark;
                         color: abstract.$primary-white;
 
@@ -83,27 +83,28 @@ footer {
                     }
                 }
             }
-            
-            &__support{
-                address{
+
+            &__support {
+                address {
                     font-style: normal;
                     font-weight: 300;
 
-                    p{
+                    p {
                         margin-bottom: abstract.$fs-400;
                     }
                 }
             }
 
-            &__download-link{
-                p, div {
+            &__download-link {
+                p,
+                div {
                     margin-bottom: abstract.$fs-500;
                 }
-                &__apps{
+                &__apps {
                     display: flex;
                     gap: abstract.$fs-300;
 
-                    &--half-height{
+                    &--half-height {
                         display: flex;
                         flex-direction: column;
                         gap: abstract.$fs-300;
@@ -116,17 +117,16 @@ footer {
                     align-items: center;
                 }
             }
-            
         }
 
-        &-copyright{
+        &-copyright {
             width: 100vw;
             padding: abstract.$fs-500;
             display: flex;
             justify-content: center;
             border-top: 1px solid abstract.$text-dark-grey;
 
-            p{
+            p {
                 display: block;
                 margin: 0 auto;
             }

@@ -1,37 +1,37 @@
-@use '../abstracts' as abstract;
+@use "../abstracts" as abstract;
 
 .authentication-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    &__form-wrapper{
-       width: 50%; 
-       display: flex;
-       align-items: center;
-       justify-content: flex-start;
-       flex-direction: column;
-
-       span{
-        opacity: 0.7;
-       }
-
-       &--link-secondary{
-        color: abstract.$accent;
-       }
-
-       &__register__card{
+    &__form-wrapper {
         width: 50%;
-        
-        h2{
-            margin-bottom: abstract.$fs-500;
-            font-family: abstract.$ff-heading;
-            font-size: abstract.$fs-650;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        span {
+            opacity: 0.7;
         }
 
-        input{
-            margin: 1rem 0;
+        &--link-secondary {
+            color: abstract.$primary-color;
         }
-       }
+
+        &__register__card {
+            width: 50%;
+
+            h2 {
+                margin-bottom: abstract.$fs-500;
+                font-family: abstract.$ff-heading;
+                font-size: abstract.$fs-650;
+            }
+
+            input {
+                margin: 1rem 0;
+            }
+        }
     }
 }
