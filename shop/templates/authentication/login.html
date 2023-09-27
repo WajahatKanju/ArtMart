@@ -8,16 +8,16 @@
     </div>
     <div class="authentication-container__form-wrapper">
       <div class="authentication-container__form-wrapper__register__card">
-        <h2>Log in to Artmart</h2>
+        <h2>Log in to {{ site_name }}</h2>
         <p>Enter your details below</p>
         <form action="">
           <input placeholder="Email" type="email">
           <input placeholder="Password" type="password" name="" id="">
-          <input class="btn btn-block btn-secondary " type="submit" value="Login">
+          <input class="btn btn-block btn-primary " type="submit" value="Login">
         </form>
       </div>
       <a class="authentication-container__form-wrapper--link-secondary" href="#">Forgot Password</a>
-      <p> <span>Don't Have An Account ?</span><a href="#">Register</a></p>
+      <p> <span>Don't Have An Account ?</span><a href="{% url 'register' %}">Register</a></p>
     </div>
   </section>
 {% endblock %}

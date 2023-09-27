@@ -14,10 +14,10 @@
           <input placeholder="Name" type="text">
           <input placeholder="Email" type="email">
           <input placeholder="Password" type="password" name="" id="">
-          <input class="btn btn-block btn-secondary " type="submit" value="Register">
+          <input class="btn btn-block btn-primary " type="submit" value="Register">
         </form>
       </div>
-        <p> <span>Already have account? </span><a href="#">Login</a></p>
+        <p> <span>Already have account? </span><a href="{% url 'login' %}">Login</a></p>
     </div>
   </section>
 {% endblock %}
