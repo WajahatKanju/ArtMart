@@ -16,7 +16,11 @@ from .models import (
     LegalCounsel,
     InventoryManager,
 )
-from .constants import PaymentPreference, Role
+from .constants import Role
+from orders.constants import PaymentMethod
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Submit
+from crispy_forms.bootstrap import FormActions
 
 
 class CustomPasswordInput(forms.PasswordInput):
@@ -66,8 +70,38 @@ class BaseAdminForm(forms.ModelForm):
     bank_name = forms.CharField()
     bank_account_number = forms.CharField()
     payment_preferences = forms.ChoiceField(
-        choices=PaymentPreference.choices,
+        choices=PaymentMethod.choices,
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                "Personal Information",
+                "first_name",
+                "last_name",
+                "email",
+                "password1",
+                "password2",
+                "phone",
+            ),
+            Fieldset(
+                "User Permissions",
+                "is_staff",
+                "is_active",
+            ),
+            Fieldset(
+                "Bank Information",
+                "bank_name",
+                "bank_account_number",
+            ),
+            Fieldset(
+                "Payment Preferences",
+                "payment_preferences",
+            ),
+            FormActions(Submit("submit", "Save Changes", css_class="btn-primary")),
+        )
 
 
 class SellerAdminForm(BaseAdminForm):

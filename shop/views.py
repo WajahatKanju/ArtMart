@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
+from .forms import CustomerSignInForm, UserLoginForm
+from users.models import User
+from users.constants import Role
 
 
 class BaseView(View):
@@ -22,17 +24,41 @@ class Index(BaseView):
 
 class Register(BaseView):
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomerSignInForm()
+
         return self.render_template(
             request, "authentication/register.html", {"form": form}
         )
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomerSignInForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            email = form.cleaned_data["email"]
+            phone = form.cleaned_data["phone"]
+
+            bank_name = form.cleaned_data["bank_name"]
+            bank_account_number = form.cleaned_data["bank_account_number"]
+            payment_preferences = form.cleaned_data["payment_preferences"]
+
+            user, _ = User.objects.get_or_create(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                phone=phone,
+                is_staff=False,
+                is_active=True,
+                bank_name=bank_name,
+                bank_account_number=bank_account_number,
+                payment_preferences=payment_preferences,
+                role=Role.CUSTOMER,
+            )
+            print("A User Was Created / Retrived ", user)
+            form.save(user)
+
             login(request, user)
-            return redirect("index")  # Redirect to your desired page after registration
+            return redirect("home")  # Redirect to your desired page after registration
         return self.render_template(
             request, "authentication/register.html", {"form": form}
         )
@@ -40,17 +66,28 @@ class Register(BaseView):
 
 class UserLogin(BaseView):
     def get(self, request):
-        form = AuthenticationForm()
+        form = UserLoginForm()
         return self.render_template(
             request, "authentication/login.html", {"form": form}
         )
 
     def post(self, request):
-        form = AuthenticationForm(request, request.POST)
+        form = UserLoginForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, email=email, password=password)
+            print("________________________")
+            print("________________________")
+            print(user)
+            if user is not None:
+                login(request, user)
+                return redirect("home")
+
             login(request, user)
             return redirect("index")  # Redirect to your desired page after login
+        else:
+            print("Error Above Me")
         return self.render_template(
             request, "authentication/login.html", {"form": form}
         )

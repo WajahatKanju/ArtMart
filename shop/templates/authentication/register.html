@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load static %}
+{% load static crispy_forms_tags  %}
 
 {% block content %}
   <section class="authentication-container">
@@ -9,13 +9,8 @@
     <div class="authentication-container__form-wrapper">
       <div class="authentication-container__form-wrapper__register__card">
         <h2>Create an Account</h2>
-        <p>Enter your details below</p>
-        <form action="">
-          <input placeholder="Name" type="text">
-          <input placeholder="Email" type="email">
-          <input placeholder="Password" type="password" name="" id="">
-          <input class="btn btn-block btn-primary " type="submit" value="Register">
-        </form>
+          {% crispy form %}
+          
       </div>
         <p> <span>Already have account? </span><a href="{% url 'login' %}">Login</a></p>
     </div>

@@ -22,11 +22,6 @@ class Role(models.TextChoices):
     INVENTORY_MANAGER = "INVENTORY_MANAGER", "Inventory Manager"
 
 
-class PaymentPreference(models.TextChoices):
-    JAZZ_CASH = "JAZZ_CASH", "Jazz Cash"
-    EASYPAISA = "EASY_PAISA", "Easy Paisa"
-
-
 class BUSINESS_TYPES(models.TextChoices):
     sole_proprietorship = ("sole_proprietorship", "Sole Proprietorship")
     llc = ("llc", "Limited Liability Company (LLC)")

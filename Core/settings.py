@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "jazzmin",
     "nested_admin",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "ckeditor",
     "django_extensions",
     "django.contrib.admin",
@@ -175,6 +177,9 @@ AUTH_USER_MODEL = "users.User"
 # ACCOUNT_EMAIL_REQUIRED = True
 # LOGIN_REDIRECT_URL = "/"
 
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 JAZZMIN_SETTINGS = {
     "icons": {
